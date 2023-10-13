@@ -4,6 +4,12 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+  background-color: #222222;
+}
+
 li {
   list-style: none;
 }
@@ -17,10 +23,6 @@ button {
   border: 0;
   background-color: transparent;
   cursor: pointer;
-}
-
-main {
-  width: 100%;
 }
 
 .contentsWrap {
