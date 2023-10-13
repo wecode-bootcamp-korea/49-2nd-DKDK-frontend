@@ -6,17 +6,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 
 const Signup = () => {
-  const [userData, setUserData] = useState({ gender: '남성' });
+  const [userData, setUserData] = useState({ gender: '남성', userType: '1' });
   const [date, setDate] = useState(new Date());
-  const [userSort, setUserSort] = useState('1');
   const [checkNickName, setCheckNickName] = useState(false);
   const handleInput = e => {
     const { name, value } = e.target;
 
     if (name === 'phoneNumber') {
       const value = e.target.value
-        .replace(/-/g, '')
-        .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+        .replace(/[^0-9]/g, '')
+        .replace(/([0-9]{3})([0-9]{3,4})([0-9]{4})/g, '$1-$2-$3');
       e.target.value = value;
       setUserData(pre => {
         return { ...pre, [name]: value };
@@ -41,30 +40,36 @@ const Signup = () => {
   };
 
   const handleUserType = e => {
-    setUserSort(e.target.value);
+    setUserData(pre => {
+      return { ...pre, userType: e.target.value };
+    });
   };
 
   const handleCheckNickName = () => {
     setCheckNickName(true);
   };
 
+  const goSignUp = () => {
+    console.log(userData);
+  };
+
   const checkAllWrite =
-    userSort === '1'
+    userData.userType === '1'
       ? userData.height &&
         userData.nickname &&
         userData.phoneNumber &&
         userData.weight &&
         checkNickName &&
-        userData.interestedWorkout != '' &&
-        userData.workoutLoad != ''
+        userData.interestedWorkout &&
+        userData.workoutLoad
       : userData.height &&
         userData.nickname &&
         userData.phoneNumber &&
         userData.weight &&
         checkNickName &&
-        userData.interestedWorkout != '' &&
-        userData.workoutLoad != '' &&
-        userData.specialized != '';
+        userData.interestedWorkout &&
+        userData.workoutLoad &&
+        userData.specialized;
   return (
     <div className="signup contentsWrap">
       <div className="container">
@@ -107,7 +112,7 @@ const Signup = () => {
           width="w100"
           name="phoneNumber"
           onChange={handleInput}
-          maxLength={11}
+          maxLength={13}
           userData={userData}
         />
         <div className="genderWrap">
@@ -175,7 +180,7 @@ const Signup = () => {
             <option value="3">하(~ 30분)</option>
           </select>
         </div>
-        {userSort === '2' && (
+        {userData.userType === '2' && (
           <div className="selectWrap">
             <select name="specialized" defaultValue="" onChange={handleInput}>
               <option value="">전문운동종목(트레이너)</option>
@@ -186,7 +191,11 @@ const Signup = () => {
           </div>
         )}
         <div className="signupBtnWrap">
-          <button className="signupBtn" disabled={!checkAllWrite}>
+          <button
+            className="signupBtn"
+            onClick={goSignUp}
+            disabled={!checkAllWrite}
+          >
             가입 완료
           </button>
         </div>
