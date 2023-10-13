@@ -1,34 +1,51 @@
-.snsLogin {
-  display: block;
-  margin: 16px 0px;
-}
-.snsBtn {
-  height: 60px;
-  font-size: 16px;
-  border-radius: 6px;
-  width: 100%;
-  padding: 12px 24px;
-  margin-bottom: 8px;
-  cursor: pointer;
+.login {
   display: flex;
-  -webkit-box-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  align-items: center;
-}
-.loginKakao {
-  background-color: rgb(251, 219, 0);
-  color: rgb(1, 0, 2);
-  border: 1px solid rgb(239, 209, 0);
-}
 
-.loginNaver {
-  background-color: rgb(70, 180, 0);
-  color: rgb(255, 255, 255);
-  border: 1px solid rgb(63, 163, 0);
-}
+  .wrap {
+    text-align: center;
+    width: 60%;
 
-img {
-  height: 24px;
-  margin-right: 8px;
+    .loginWrap {
+      width: 50%;
+      margin: auto;
+
+      .snsLogin {
+        display: block;
+        margin: 16px 0px;
+      }
+
+      .snsBtn {
+        height: 60px;
+        font-size: 16px;
+        border-radius: 6px;
+        width: 100%;
+        padding: 12px 24px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+      }
+
+      .loginKakao {
+        background-color: rgb(251, 219, 0);
+        color: rgb(1, 0, 2);
+        border: 1px solid rgb(239, 209, 0);
+      }
+
+      .loginNaver {
+        background-color: rgb(70, 180, 0);
+        color: rgb(255, 255, 255);
+        border: 1px solid rgb(63, 163, 0);
+      }
+
+      img {
+        height: 24px;
+        margin-right: 8px;
+      }
+    }
+  }
 }
