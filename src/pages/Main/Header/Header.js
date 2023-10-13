@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import LoginGroup from './LoginGroup/LoginGroup';
 import './Header.scss';
 
 const Header = () => {
+  const [isMouseIn, setIsMouseIn] = useState(false);
+  const mouseInEvent = () => {
+    setIsMouseIn(true);
+  };
+  const mouseOutEvent = () => {
+    setIsMouseIn(false);
+  };
+
+  // 페이지 생성 후 Link path 설정하기
   return (
     <header className="header">
       <div className="navOutWrap">
@@ -27,20 +37,11 @@ const Header = () => {
               <Link to="/">구독하기</Link>
             </li>
           </ul>
-          <div className="loginWrap">
-            <Link to="/login">로그인/회원가입</Link>
-            <button type="button">마이페이지</button>
-            <div className="dropdown">
-              <ul>
-                <li>
-                  <Link to="/">운동 기록</Link>
-                </li>
-                <li>
-                  <button type="button">로그아웃</button>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <LoginGroup
+            isMouseIn={isMouseIn}
+            mouseInEvent={mouseInEvent}
+            mouseOutEvent={mouseOutEvent}
+          />
         </nav>
       </div>
     </header>

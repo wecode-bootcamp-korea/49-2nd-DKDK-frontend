@@ -1,0 +1,69 @@
+.loginWrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 120px;
+  height: 66px;
+  font-size: 12px;
+
+  a {
+    height: 100%;
+    color: #ffe86f;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  button {
+    height: 100%;
+    color: #ffe86f;
+    font-size: 12px;
+    font-weight: bold;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    min-width: 200px;
+
+    ul {
+      li {
+        padding: 8px 24px;
+        background-color: #000;
+
+        a {
+          color: #fff;
+        }
+
+        button {
+          color: #fff;
+        }
+
+        &:hover {
+          background-color: #ffe86f;
+          a {
+            color: #000;
+          }
+          button {
+            color: #000;
+          }
+        }
+      }
+
+      li:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      li:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+  }
+}

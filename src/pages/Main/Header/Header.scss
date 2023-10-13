@@ -9,14 +9,22 @@
     @include FlexCenter;
     width: 1140px;
     height: 100%;
+    margin: 0 auto;
     color: #fff;
 
     a {
+      display: flex;
+      align-items: center;
+      height: 100%;
       color: #fff;
 
       img {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
+      }
+
+      &:hover {
+        color: #ffe86f;
       }
     }
 
@@ -25,7 +33,7 @@
       justify-content: flex-end;
       align-items: center;
       width: 959px;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: bold;
       letter-spacing: 0.3px;
 
@@ -38,70 +46,6 @@
           align-items: center;
           height: 66px;
           margin: 0 15px;
-        }
-      }
-
-      .loginWrap {
-        position: relative;
-        font-size: 10px;
-
-        a {
-          color: #ffe86f;
-
-          &:hover {
-            color: #fff;
-          }
-        }
-
-        button {
-          color: #ffe86f;
-          font-size: 10px;
-          font-weight: bold;
-
-          &:hover {
-            color: #fff;
-          }
-        }
-
-        .dropdown {
-          display: flex;
-          flex-direction: column;
-          position: absolute;
-          top: 33px;
-          min-width: 200px;
-
-          ul {
-            li {
-              padding: 8px 24px;
-              background-color: #000;
-
-              a {
-                color: #fff;
-              }
-
-              button {
-                color: #fff;
-              }
-
-              &:hover {
-                background-color: #ffe86f;
-                a {
-                  color: #000;
-                }
-                button {
-                  color: #000;
-                }
-              }
-            }
-
-            li:first-child {
-              border-radius: 4px 4px 0 0;
-            }
-
-            li:last-child {
-              border-radius: 0 0 4px 4px;
-            }
-          }
         }
       }
     }
