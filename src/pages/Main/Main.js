@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Main = () => {
-  return <>메인 페이지</>;
+  return <main id="main">메인 페이지</main>;
 };
 
 export default Main;

@@ -1,7 +1,36 @@
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 li {
   list-style: none;
+}
+
+a {
+  color: initial;
+  text-decoration: none;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+main {
+  width: 100%;
+}
+
+.contentsWrap {
+  width: 1140px;
+  margin: 100px auto;
+  padding: 0 15px;
+}
+
+@mixin FlexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
