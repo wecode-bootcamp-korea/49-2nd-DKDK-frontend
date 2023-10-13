@@ -1,13 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './LoginGroup.scss';
 
 const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
-  if (localStorage.getItem(accessToken) === true) {
-    <div className="loginWrap">
-      <Link to="/login">로그인/회원가입</Link>
-    </div>;
-  } else {
+  const [isToken, setIsToken] = useState(false);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (accessToken) {
+      setIsToken(true);
+    } else {
+      setIsToken(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleToken = e => {
+      if (e.key === 'accessToken') {
+        if (e.newValue) {
+          setIsToken(true);
+        } else {
+          setIsToken(false);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleToken);
+
+    return () => {
+      window.removeEventListener('storage', handleToken);
+    };
+  }, []);
+
+  if (isToken === false) {
+    return (
+      <div className="loginWrap">
+        <Link to="/login">로그인/회원가입</Link>
+      </div>
+    );
+  } else if (isToken === true) {
     return (
       <div className="loginWrap">
         <button

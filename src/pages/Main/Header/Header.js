@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import LoginGroup from './LoginGroup/LoginGroup';
 import './Header.scss';
 
+// 페이지 생성 후 Link path 설정하기
+const PATH_NAV = [
+  { id: 1, name: '홈', path: '/' },
+  { id: 2, name: '커뮤니티', path: '' },
+  { id: 3, name: '트레이너 매칭', path: '' },
+  { id: 4, name: '구독하기', path: '' },
+];
+
 const Header = () => {
   const [isMouseIn, setIsMouseIn] = useState(false);
   const mouseInEvent = () => {
@@ -12,7 +20,6 @@ const Header = () => {
     setIsMouseIn(false);
   };
 
-  // 페이지 생성 후 Link path 설정하기
   return (
     <header className="header">
       <div className="navOutWrap">
@@ -24,18 +31,13 @@ const Header = () => {
         </Link>
         <nav className="navWrap">
           <ul className="navItemWrap">
-            <li className="navItem">
-              <Link to="/">홈</Link>
-            </li>
-            <li className="navItem">
-              <Link to="/">커뮤니티</Link>
-            </li>
-            <li className="navItem">
-              <Link to="/">트레이너 매칭</Link>
-            </li>
-            <li className="navItem">
-              <Link to="/">구독하기</Link>
-            </li>
+            {PATH_NAV.map(nav => {
+              return (
+                <li className="navItem" key={nav.id}>
+                  <Link to={nav.path}>{nav.name}</Link>
+                </li>
+              );
+            })}
           </ul>
           <LoginGroup
             isMouseIn={isMouseIn}
