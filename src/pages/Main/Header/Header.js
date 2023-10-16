@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="navOutWrap">
-        <Link to="/">
+        <Link to="/" className="pathWrap">
           <img
             src={process.env.PUBLIC_URL + '/images/logo_white.png'}
             alt="득근득근 logo"
@@ -34,7 +34,9 @@ const Header = () => {
             {PATH_NAV.map(nav => {
               return (
                 <li className="navItem" key={nav.id}>
-                  <Link to={nav.path}>{nav.name}</Link>
+                  <Link to={nav.path} className="pathWrap">
+                    {nav.name}
+                  </Link>
                 </li>
               );
             })}

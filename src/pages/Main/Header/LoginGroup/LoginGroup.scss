@@ -6,20 +6,20 @@
   height: 66px;
   font-size: 12px;
 
-  a {
-    height: 100%;
-    color: #ffe86f !important;
-
-    &:hover {
-      color: #fff !important;
-    }
-  }
-
-  button {
+  .mypageWrap {
     height: 100%;
     color: #ffe86f;
     font-size: 12px;
     font-weight: bold;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .loginWrap {
+    height: 100%;
+    color: #ffe86f;
 
     &:hover {
       color: #fff;
@@ -33,35 +33,37 @@
     top: 60px;
     min-width: 200px;
 
-    ul {
-      li {
+    .dropdownList {
+      .dropdownItem {
         padding: 8px 24px;
         background-color: #000;
 
-        a {
-          color: #fff !important;
+        .itemPath {
+          color: #fff;
         }
 
-        button {
+        .itemPathBtn {
+          font-size: 12px;
+          font-weight: bold;
           color: #fff;
         }
 
         &:hover {
           background-color: #ffe86f;
-          a {
-            color: #000 !important;
+          .itemPath {
+            color: #000;
           }
-          button {
+          .itemPathBtn {
             color: #000;
           }
         }
       }
 
-      li:first-child {
+      .dropdownItem:first-child {
         border-radius: 4px 4px 0 0;
       }
 
-      li:last-child {
+      .dropdownItem:last-child {
         border-radius: 0 0 4px 4px;
       }
     }

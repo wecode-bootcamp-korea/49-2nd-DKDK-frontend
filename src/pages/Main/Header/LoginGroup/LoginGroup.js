@@ -4,6 +4,10 @@ import './LoginGroup.scss';
 
 const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
   const [isToken, setIsToken] = useState(false);
+  const removeToken = () => {
+    localStorage.removeItem('accessToken');
+    setIsToken(false);
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -33,41 +37,50 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
     };
   }, []);
 
-  if (isToken === false) {
-    return (
-      <div className="loginWrap">
-        <Link to="/login">로그인/회원가입</Link>
-      </div>
-    );
-  } else if (isToken === true) {
-    return (
-      <div className="loginWrap">
-        <button
-          type="button"
-          onMouseEnter={mouseInEvent}
-          onMouseLeave={mouseOutEvent}
-        >
-          마이페이지
-        </button>
-        {isMouseIn && (
-          <div
-            className="dropdown"
+  return (
+    <div className="loginWrap">
+      {isToken ? (
+        <>
+          <button
+            type="button"
             onMouseEnter={mouseInEvent}
             onMouseLeave={mouseOutEvent}
+            className="mypageWrap"
           >
-            <ul>
-              <li>
-                <Link to="/">운동 기록</Link>
-              </li>
-              <li>
-                <button type="button">로그아웃</button>
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
-    );
-  }
+            마이페이지
+          </button>
+          {isMouseIn && (
+            <div
+              className="dropdown"
+              onMouseEnter={mouseInEvent}
+              onMouseLeave={mouseOutEvent}
+            >
+              <ul className="dropdownList">
+                <li className="dropdownItem">
+                  <Link to="/" className="itemPath">
+                    운동 기록
+                  </Link>
+                </li>
+                <li className="dropdownItem">
+                  <button
+                    type="button"
+                    className="itemPathBtn"
+                    onClick={removeToken}
+                  >
+                    로그아웃
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
+        </>
+      ) : (
+        <Link to="/login" className="loginWrap">
+          로그인/회원가입
+        </Link>
+      )}
+    </div>
+  );
 };
 
 export default LoginGroup;
