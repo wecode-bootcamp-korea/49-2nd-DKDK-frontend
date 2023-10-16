@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './InfoBox.scss';
 const InfoBox = props => {
   return (
     <div className={`infoBox ${props.class}`}>

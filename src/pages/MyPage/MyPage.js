@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './MyPage.scss';
 import InfoBox from './InfoBox';
 
 const MyPage = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch('/data/myPage.json')
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
+        setData(result);
+      });
+  }, []);
+
   return (
     <div className="myPage contentsWrap">
       <div className="titleWrap">
@@ -16,7 +26,7 @@ const MyPage = () => {
           </div>
           <div className="myForm">
             <div className="myLeftForm">
-              <img src="/images/defult_profile.png" />
+              <img src="/images/defult_profile.png" alt="프로필" />
             </div>
             <div className="myRightForm">
               <div className="bordBox">
@@ -54,7 +64,7 @@ const MyPage = () => {
           </div>
           <div className="myForm">
             <div className="myLeftForm">
-              <img src="/images/defult_profile.png" />
+              <img src="/images/defult_profile.png" alt="트레이너 프로필" />
             </div>
             <div className="myRightForm">
               <div className="bordBox">
@@ -77,26 +87,12 @@ const MyPage = () => {
             <h2>내 식단 추천</h2>
           </div>
           <div className="myForm">
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
+            {data.map(item => (
+              <div className="recommandForm" key={item.name}>
+                <img src={item.imgUrl} alt={item.name} />
+                <p>{item.name}</p>
+              </div>
+            ))}
           </div>
         </div>
         <div className="myInfo">
@@ -104,26 +100,12 @@ const MyPage = () => {
             <h2>내 운동 추천</h2>
           </div>
           <div className="myForm">
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
-            <div className="recommandForm">
-              <img src="/images/defult_profile.png" />
-              <p>벤치 프레스</p>
-            </div>
+            {data.map(item => (
+              <div className="recommandForm" key={item.name}>
+                <img src={item.imgUrl} alt={item.name} />
+                <p>{item.name}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
