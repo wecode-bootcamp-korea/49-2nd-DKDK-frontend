@@ -1,36 +1,48 @@
 import React from 'react';
 import './Input.scss';
 
-const Input = props => {
-  const nicknameDisabled = props.userData.nickname;
+const Input = ({
+  lable,
+  name,
+  width,
+  onChange,
+  useBtn,
+  onClick,
+  type,
+  userData,
+  maxLength,
+  useSecond,
+  secondLable,
+  secondName,
+}) => {
   return (
     <div className="InfoWrap">
       <div className="inputGroup">
         <input
           required=""
-          type={props.type}
-          className={`inputBox ${props.width}`}
-          onChange={e => props.onChange(e)}
-          placeholder={props.lable}
-          maxLength={props.maxLength}
-          name={props.name}
+          type={type}
+          className={`inputBox ${width}`}
+          onChange={e => onChange(e)}
+          placeholder={lable}
+          maxLength={maxLength}
+          name={name}
         />
-        {props.second === 'true' && (
+        {useSecond && (
           <input
             required=""
-            type={props.type}
-            className={`inputBox ${props.width}`}
-            onChange={e => props.onChange(e)}
-            placeholder={props.secondLable}
-            maxLength={props.maxLength}
-            name={props.secondName}
+            type={type}
+            className={`inputBox ${width}`}
+            onChange={e => onChange(e)}
+            placeholder={secondLable}
+            maxLength={maxLength}
+            name={secondName}
           />
         )}
-        {props.btnVisible === 'true' && (
+        {useBtn && (
           <button
-            onClick={props.onClick}
+            onClick={onClick}
             className="checkBtn"
-            disabled={!nicknameDisabled}
+            disabled={!userData.nickname}
           >
             중복확인
           </button>

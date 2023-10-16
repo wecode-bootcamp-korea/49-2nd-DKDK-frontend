@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './Signup.scss';
 import Input from './components/Input/Input';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
+import 'react-datepicker/dist/react-datepicker.css';
+import './Signup.scss';
 
 const Signup = () => {
   const [userData, setUserData] = useState({ gender: '남성', userType: '1' });
@@ -39,12 +39,6 @@ const Signup = () => {
     });
   };
 
-  const handleUserType = e => {
-    setUserData(pre => {
-      return { ...pre, userType: e.target.value };
-    });
-  };
-
   const handleCheckNickName = () => {
     setCheckNickName(true);
   };
@@ -54,22 +48,14 @@ const Signup = () => {
   };
 
   const checkAllWrite =
-    userData.userType === '1'
-      ? userData.height &&
-        userData.nickname &&
-        userData.phoneNumber &&
-        userData.weight &&
-        checkNickName &&
-        userData.interestedWorkout &&
-        userData.workoutLoad
-      : userData.height &&
-        userData.nickname &&
-        userData.phoneNumber &&
-        userData.weight &&
-        checkNickName &&
-        userData.interestedWorkout &&
-        userData.workoutLoad &&
-        userData.specialized;
+    userData.height &&
+    userData.nickname &&
+    userData.phoneNumber &&
+    userData.weight &&
+    checkNickName &&
+    userData.interestedWorkout &&
+    userData.workoutLoad &&
+    (userData.userType === '1' || userData.specialized);
   return (
     <div className="signup contentsWrap">
       <div className="container">
@@ -78,19 +64,19 @@ const Signup = () => {
           <label>
             <input
               type="radio"
-              name="uesrType"
+              name="userType"
               value="1"
               defaultChecked
-              onChange={e => handleUserType(e)}
+              onChange={e => handleInput(e)}
             />
             <span>일반인</span>
           </label>
           <label>
             <input
               type="radio"
-              name="uesrType"
+              name="userType"
               value="2"
-              onChange={e => handleUserType(e)}
+              onChange={e => handleInput(e)}
             />
             <span>트레이너</span>
           </label>
@@ -102,7 +88,7 @@ const Signup = () => {
           name="nickname"
           width="w80"
           onChange={handleInput}
-          btnVisible="true"
+          useBtn={true}
           onClick={handleCheckNickName}
           type="text"
           userData={userData}
@@ -155,7 +141,7 @@ const Signup = () => {
           type="number"
           width="w50"
           name="height"
-          second="true"
+          useSecond={true}
           secondLable="몸무게(kg)"
           secondName="weight"
           onChange={handleInput}
