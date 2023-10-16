@@ -9,17 +9,21 @@
     padding-bottom: 100px;
     gap: 30px;
 
+    .title {
+      color: white;
+      font-size: 2rem;
+    }
+
     .genderWrap {
       --container_width: 600px;
       position: relative;
       display: flex;
       align-items: center;
       border-radius: 10px;
-      background-color: #fff;
-      color: #000000;
+      color: white;
       width: var(--container_width);
       overflow: hidden;
-      border: 1px solid rgba(53, 52, 52, 0.226);
+      border: 1px solid #ffe86f;
     }
 
     .userSortWrap {
@@ -28,11 +32,10 @@
       display: flex;
       align-items: center;
       border-radius: 10px;
-      background-color: #fff;
-      color: #000000;
+      color: white;
       width: var(--container_width);
       overflow: hidden;
-      border: 1px solid rgba(53, 52, 52, 0.226);
+      border: 1px solid #ffe86f;
     }
 
     .userSortWrap,
@@ -66,7 +69,7 @@
       }
 
       label:has(input:checked) {
-        color: #fff;
+        color: black;
       }
 
       label:has(input:checked) ~ .selection {
@@ -100,14 +103,25 @@
       text-align: center;
       .signupBtn {
         width: 50%;
-        color: black;
-        background-color: #ffe86f;
-        font-size: 20px;
+        background-color: #eee;
+        border: none;
         padding: 1rem;
-        border-radius: 10px;
+        font-size: 1rem;
+        width: 10em;
+        border-radius: 1rem;
+        color: black;
+        box-shadow: 0 0.4rem #dfd9d9;
+        cursor: pointer;
+
+        &:hover:not(:disabled) {
+          background: #ffe86f;
+          color: white;
+          text-shadow: 0 0.1rem #bcb4b4;
+        }
+
         &:disabled {
-          background-color: lightgray;
           cursor: auto;
+          color: grey;
         }
       }
     }

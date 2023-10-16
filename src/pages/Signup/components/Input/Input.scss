@@ -48,14 +48,25 @@
 
     .checkBtn {
       width: 18%;
-      color: black;
-      background-color: #ffe86f;
+      background-color: #eee;
+      border: none;
       padding: 1rem;
-      border-radius: 10px;
-      right: 0;
+      font-size: 1rem;
+      border-radius: 1rem;
+      color: black;
+      box-shadow: 0 0.4rem #dfd9d9;
+      cursor: pointer;
       position: absolute;
+      right: 0;
+
+      &:hover:not(:disabled) {
+        background: #ffe86f;
+        color: black;
+      }
+
       &:disabled {
-        background-color: lightgray;
+        cursor: auto;
+        color: grey;
       }
     }
   }

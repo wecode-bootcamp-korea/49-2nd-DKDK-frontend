@@ -73,6 +73,7 @@ const Signup = () => {
   return (
     <div className="signup contentsWrap">
       <div className="container">
+        <p className="title">상세 정보 입력</p>
         <div className="userSortWrap">
           <label>
             <input
