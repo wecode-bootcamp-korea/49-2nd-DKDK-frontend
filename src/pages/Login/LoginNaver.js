@@ -13,7 +13,7 @@ const LoginNaver = () => {
         .get(`http://10.58.52.78:4000/auth/naver/callback?code=${code}`)
         .then(res => {
           if (res.data.message === 'LOGIN_SUCCESS') {
-            navigate('/');
+            navigate('/signup');
           }
         });
   }, []);
