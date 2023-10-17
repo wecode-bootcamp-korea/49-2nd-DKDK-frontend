@@ -21,21 +21,20 @@ const ModiInfo = () => {
   };
 
   const handleInput = e => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
 
     if (name === 'phoneNumber') {
       const value = e.target.value
         .replace(/[^0-9]/g, '')
         .replace(/([0-9]{3})([0-9]{3,4})([0-9]{4})/g, '$1-$2-$3');
       e.target.value = value;
-      setUserData(pre => {
-        return { ...pre, [name]: value };
-      });
-    } else {
-      setUserData(pre => {
-        return { ...pre, [name]: value };
-      });
+    } else if (type === 'number') {
+      const value = e.target.value.replace(/[^0-9.]/g, '');
+      e.target.value = value;
     }
+    setUserData(pre => {
+      return { ...pre, [name]: value };
+    });
   };
 
   const handleDate = data => {
@@ -61,6 +60,7 @@ const ModiInfo = () => {
     userData.interestedWorkout &&
     userData.workoutLoad &&
     (userData.userType === '1' || userData.specialized);
+  console.log(userData);
   return (
     <div className="modiInfo contentsWrap">
       <div className="container">
