@@ -1,20 +1,57 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import axios from 'axios';
 import './Trainers.scss';
 
 const Trainers = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState([]);
-  const pagenation = document.querySelector('.pagination');
-  const fullContent = document.querySelector('.contentsWrap');
-  let bottom = false;
+  const [page, setPage] = useState(1);
+  let offset = searchParams.get('offset');
+  let limit = searchParams.get('limit');
 
-  document.addEventListener('scroll', onscroll, { passive: true });
+  if (offset === null) {
+    offset = 6;
+  }
+
+  const setPaginationParams = () => {
+    limit = 12;
+    searchParams.set('offset', page * 6);
+    searchParams.set('limit', page * 6);
+    setSearchParams(setSearchParams);
+  };
 
   useEffect(() => {
-    axios('/data/trainermatching.json').then(function (response) {
-      setData(response.data);
-    });
+    axios('https://dummyjson.com/products?offset=0&limit=6').then(
+      function (response) {
+        setPaginationParams();
+        setData(response.data.products);
+      },
+    );
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } =
+        document.documentElement;
+      if (scrollHeight - scrollTop === clientHeight) {
+        axios(
+          `https://dummyjson.com/products?offset=${offset}&limit=${limit}`,
+        ).then(function (response) {
+          setPaginationParams();
+          setData(response.data.products);
+          setPage(page + 1);
+          console.log('offset:', offset);
+          console.log(data);
+        });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [page]);
 
   return (
     <section className="contentsWrap">
@@ -34,9 +71,9 @@ const Trainers = () => {
         </select>
       </div>
       <ul className="trainersWrap">
-        {data.map(trainer => {
+        {data?.map((trainer, index) => {
           return (
-            <li className="trainerItem" key={trainer.id}>
+            <li className="trainerItem" key={index}>
               <div className="trainerImg">
                 <img
                   src={process.env.PUBLIC_URL + '/images/logo_white.png'}
@@ -50,10 +87,11 @@ const Trainers = () => {
                 </p>
                 <div className="detailInfo">
                   <p className="leftHalfWrap">
-                    <span className="bold">가격</span>: {trainer.price}
+                    <span className="bold">가격</span>
+                    {`: ${trainer.price.toLocaleString()}`}
                   </p>
                   <p className="halfWrap">
-                    <span className="bold">시간</span>: {trainer.time}
+                    <span className="bold">위치</span>: {trainer.available_area}
                   </p>
                 </div>
               </div>
@@ -61,7 +99,6 @@ const Trainers = () => {
           );
         })}
       </ul>
-      <div className="pagination">페이지네이션</div>
     </section>
   );
 };

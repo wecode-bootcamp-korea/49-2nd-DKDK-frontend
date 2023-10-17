@@ -30,11 +30,12 @@
   }
   .trainersWrap {
     display: grid;
-    grid-template-columns: 32% 32% 32%;
-    gap: 2%;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    width: 100%;
 
     .trainerItem {
       height: 562px;
+      margin-right: 4%;
       background-color: #333;
       border: 1px solid #000;
 
@@ -45,6 +46,10 @@
 
         img {
           width: 100%;
+        }
+
+        &:nth-child(3n) {
+          margin-right: 0;
         }
       }
 
