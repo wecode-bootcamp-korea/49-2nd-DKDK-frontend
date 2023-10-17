@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginGroup.scss';
 
 const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
   const [isToken, setIsToken] = useState(false);
-  const removeToken = () => {
-    localStorage.removeItem('accessToken');
-    setIsToken(false);
-  };
+  const navigate = useNavigate();
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -37,15 +34,21 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
     };
   }, []);
 
+  const removeToken = () => {
+    localStorage.removeItem('accessToken');
+    setIsToken(false);
+    navigate('/');
+  };
+
   return (
-    <div className="loginWrap">
+    <div className="loginGroupWrap">
       {isToken ? (
         <>
           <button
             type="button"
             onMouseEnter={mouseInEvent}
             onMouseLeave={mouseOutEvent}
-            className="mypageWrap"
+            className="mypagePathWrap"
           >
             마이페이지
           </button>
@@ -75,7 +78,7 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
           )}
         </>
       ) : (
-        <Link to="/login" className="loginWrap">
+        <Link to="/login" className="loginPath">
           로그인/회원가입
         </Link>
       )}
