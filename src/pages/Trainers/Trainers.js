@@ -61,6 +61,7 @@ const Trainers = () => {
         <select className="sortSelect">
           <option>회원수 순</option>
           <option>활동 순</option>
+          <option>가격 순</option>
         </select>
       </div>
       <TrainersGroup trainerListData={data} />
