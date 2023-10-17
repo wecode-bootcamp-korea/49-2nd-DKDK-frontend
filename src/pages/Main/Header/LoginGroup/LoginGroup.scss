@@ -1,4 +1,4 @@
-.loginWrap {
+.loginGroupWrap {
   display: flex;
   align-items: center;
   position: relative;
@@ -6,7 +6,7 @@
   height: 66px;
   font-size: 12px;
 
-  .mypageWrap {
+  .mypageBtn {
     height: 100%;
     color: #ffe86f;
     font-size: 12px;
@@ -17,7 +17,9 @@
     }
   }
 
-  .loginWrap {
+  .loginPath {
+    display: flex;
+    align-items: center;
     height: 100%;
     color: #ffe86f;
 
