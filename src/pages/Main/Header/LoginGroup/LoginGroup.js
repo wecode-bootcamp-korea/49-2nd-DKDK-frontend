@@ -48,7 +48,7 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
             type="button"
             onMouseEnter={mouseInEvent}
             onMouseLeave={mouseOutEvent}
-            className="mypagePathWrap"
+            className="mypageBtn"
           >
             마이페이지
           </button>
