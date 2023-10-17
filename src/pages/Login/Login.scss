@@ -5,6 +5,11 @@
   .wrap {
     text-align: center;
     width: 60%;
+    .logoWrap {
+      img {
+        height: 400px;
+      }
+    }
 
     .loginWrap {
       width: 50%;
