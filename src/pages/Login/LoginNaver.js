@@ -10,10 +10,15 @@ const LoginNaver = () => {
   useEffect(() => {
     code &&
       axios
-        .get(`http://10.58.52.78:4000/auth/naver/callback?code=${code}`)
+        .get(
+          `${process.env.REACT_APP_TEST_API}/auth/naver/callback?code=${code}`,
+        )
         .then(res => {
-          if (res.data.message === 'LOGIN_SUCCESS') {
+          if (res.data.message === 'NEW_USER') {
+            localStorage.setItem('newUserToken', res.data.token);
             navigate('/signup');
+          } else if (res.data.message === 'LOGIN_SUCCESS') {
+            navigate('/main');
           }
         });
   }, []);
