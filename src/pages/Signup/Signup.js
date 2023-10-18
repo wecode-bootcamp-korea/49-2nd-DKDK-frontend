@@ -26,6 +26,12 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('newUserToken');
+    };
+  }, []);
+
   const handleInput = e => {
     const { name, value } = e.target;
     if (name === 'phoneNumber') {
@@ -73,7 +79,6 @@ const Signup = () => {
         })
         .then(res => {
           if (res.data.message === 'SIGNUP_SUCCESS') {
-            localStorage.removeItem('newUserToken');
             alert('가입이 완료되었습니다.');
             navigate('/login');
           } else {
