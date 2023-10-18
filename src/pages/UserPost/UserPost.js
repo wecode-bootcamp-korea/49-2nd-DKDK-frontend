@@ -35,10 +35,8 @@ const UserPost = () => {
           </div>
           <div className="buttonWrapper">
             <label>
-              <input type="checkbox" />
-              <span>내 글보기</span>
+              <input type="checkbox" />내 글보기
             </label>
-
             <button className="writeButton">글 쓰기</button>
           </div>
         </div>
