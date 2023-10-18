@@ -1,0 +1,24 @@
+.infoBox {
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: white;
+  p {
+    font-size: 1.2rem;
+    display: inline-block;
+    padding: 10px;
+
+    &.infoKey {
+      width: 30%;
+      border-right: 1px solid;
+    }
+    &.infoValue {
+      width: 70%;
+      padding-left: 20px;
+    }
+  }
+}
+.flexBox {
+  width: calc(30% - 30px);
+}
