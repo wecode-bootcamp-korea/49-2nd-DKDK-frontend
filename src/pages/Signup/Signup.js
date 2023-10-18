@@ -59,7 +59,7 @@ const Signup = () => {
 
   const goSignUp = () => {
     const phoneNumberRegex = /^01[016-9]\d{3,4}\d{4}$/;
-    console.log(Math.sign(userData.weight));
+
     if (Math.sign(userData.weight) === -1) {
       alert('몸무게 값을 확인해주세요.');
     } else if (Math.sign(userData.height) === -1) {
@@ -72,7 +72,6 @@ const Signup = () => {
           headers: { Authorization: localStorage.getItem('newUserToken') },
         })
         .then(res => {
-          console.log(res);
           if (res.data.message === 'SIGNUP_SUCCESS') {
             localStorage.removeItem('newUserToken');
             alert('가입이 완료되었습니다.');
