@@ -51,9 +51,9 @@ const MyPage = () => {
           </div>
           <div className="myForm">
             <div className="trainerBox">
-              <InfoBox setClass="flexBox" id="운동분야" value="173cm" />
-              <InfoBox setClass="flexBox" id="회원 수" value="173cm" />
-              <InfoBox setClass="flexBox" id="댓글 수" value="173cm" />
+              <InfoBox setDisplay="flexBox" id="운동분야" value="173cm" />
+              <InfoBox setDisplay="flexBox" id="회원 수" value="173cm" />
+              <InfoBox setDisplay="flexBox" id="댓글 수" value="173cm" />
             </div>
           </div>
         </div>
