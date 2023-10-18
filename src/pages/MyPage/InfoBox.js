@@ -1,10 +1,10 @@
 import React from 'react';
 import './InfoBox.scss';
-const InfoBox = props => {
+const InfoBox = ({ id, value, setClass }) => {
   return (
-    <div className={`infoBox ${props.class}`}>
-      <p>{props.id}</p>
-      <p>{props.value}</p>
+    <div className={`infoBox ${setClass && setClass}`}>
+      <p className="infoKey">{id}</p>
+      <p className="infoValue">{value}</p>
     </div>
   );
 };

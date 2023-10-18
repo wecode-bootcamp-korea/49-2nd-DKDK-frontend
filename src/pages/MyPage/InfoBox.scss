@@ -9,11 +9,11 @@
     display: inline-block;
     padding: 10px;
 
-    &:first-child {
+    &.infoKey {
       width: 30%;
       border-right: 1px solid;
     }
-    &:last-child {
+    &.infoValue {
       width: 70%;
       padding-left: 20px;
     }

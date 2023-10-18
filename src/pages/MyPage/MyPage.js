@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import './MyPage.scss';
 import InfoBox from './InfoBox';
+import './MyPage.scss';
 
 const MyPage = () => {
-  const [data, setData] = useState([]);
+  const [myData, setMyData] = useState([]);
   useEffect(() => {
     fetch('/data/myPage.json')
       .then(res => res.json())
       .then(result => {
-        console.log(result);
-        setData(result);
+        setMyData(result);
       });
   }, []);
 
@@ -52,9 +51,9 @@ const MyPage = () => {
           </div>
           <div className="myForm">
             <div className="trainerBox">
-              <InfoBox class="flexBox" id="운동분야" value="173cm" />
-              <InfoBox class="flexBox" id="회원 수" value="173cm" />
-              <InfoBox class="flexBox" id="댓글 수" value="173cm" />
+              <InfoBox setClass="flexBox" id="운동분야" value="173cm" />
+              <InfoBox setClass="flexBox" id="회원 수" value="173cm" />
+              <InfoBox setClass="flexBox" id="댓글 수" value="173cm" />
             </div>
           </div>
         </div>
@@ -87,7 +86,7 @@ const MyPage = () => {
             <h2>내 식단 추천</h2>
           </div>
           <div className="myForm">
-            {data.map(item => (
+            {myData.map(item => (
               <div className="recommandForm" key={item.name}>
                 <img src={item.imgUrl} alt={item.name} />
                 <p>{item.name}</p>
@@ -100,7 +99,7 @@ const MyPage = () => {
             <h2>내 운동 추천</h2>
           </div>
           <div className="myForm">
-            {data.map(item => (
+            {myData.map(item => (
               <div className="recommandForm" key={item.name}>
                 <img src={item.imgUrl} alt={item.name} />
                 <p>{item.name}</p>
