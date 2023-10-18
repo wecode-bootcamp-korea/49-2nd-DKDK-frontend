@@ -11,7 +11,6 @@ const ModiInfo = () => {
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef();
   const saveImgFile = () => {
-    console.log(imgRef);
     const file = imgRef.current.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -49,9 +48,7 @@ const ModiInfo = () => {
     });
   };
 
-  const goSignUp = () => {
-    console.log(userData);
-  };
+  const goSignUp = () => {};
 
   const checkAllWrite =
     userData.height &&
@@ -60,7 +57,7 @@ const ModiInfo = () => {
     userData.interestedWorkout &&
     userData.workoutLoad &&
     (userData.userType === '1' || userData.specialized);
-  console.log(userData);
+
   return (
     <div className="modiInfo contentsWrap">
       <div className="container">
