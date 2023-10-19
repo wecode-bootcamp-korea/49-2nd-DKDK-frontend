@@ -24,8 +24,8 @@ const TrainersGroup = ({ trainerListData }) => {
               </p>
               <div className="detailInfo">
                 <p className="leftHalfWrap">
-                  <span className="bold">가격</span>
-                  {`: ${trainer.price.toLocaleString()}`}
+                  <span className="bold">가격</span>:&nbsp;
+                  {trainer.price.toLocaleString()}
                 </p>
                 <p className="halfWrap">
                   <span className="bold">위치</span>: {trainer.brand}

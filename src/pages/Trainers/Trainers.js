@@ -45,13 +45,8 @@ const Trainers = () => {
   const [page, setPage] = useState(1);
   const [sortParam, setSortParam] = useState('');
   const [gender, setGender] = useState();
-  let offset = searchParams.get('offset');
-
+  const offset = searchParams.get('offset') || 0;
   const limit = 6;
-
-  if (offset === null) {
-    offset = 0;
-  }
 
   const setPaginationParams = nextOffset => {
     searchParams.set('offset', nextOffset);
