@@ -1,0 +1,73 @@
+.loginGroupWrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 120px;
+  height: 66px;
+  font-size: 12px;
+
+  .mypageBtn {
+    height: 100%;
+    color: #ffe86f;
+    font-size: 12px;
+    font-weight: bold;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .loginPath {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: #ffe86f;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    min-width: 200px;
+
+    .dropdownList {
+      .dropdownItem {
+        padding: 8px 24px;
+        background-color: #000;
+
+        .itemPath {
+          color: #fff;
+        }
+
+        .itemPathBtn {
+          font-size: 12px;
+          font-weight: bold;
+          color: #fff;
+        }
+
+        &:hover {
+          background-color: #ffe86f;
+          .itemPath {
+            color: #000;
+          }
+          .itemPathBtn {
+            color: #000;
+          }
+        }
+      }
+
+      .dropdownItem:first-child {
+        border-radius: 4px 4px 0 0;
+      }
+
+      .dropdownItem:last-child {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+  }
+}
