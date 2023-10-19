@@ -18,6 +18,9 @@ const LoginNaver = () => {
             localStorage.setItem('newUserToken', res.data.token);
             navigate('/signup');
           } else if (res.data.message === 'LOGIN_SUCCESS') {
+            localStorage.setItem('accessToken', res.data.token);
+            localStorage.setItem('userType', res.data.userType);
+            localStorage.setItem('isSubscribed', res.data.isSubscribed);
             navigate('/main');
           }
         });
