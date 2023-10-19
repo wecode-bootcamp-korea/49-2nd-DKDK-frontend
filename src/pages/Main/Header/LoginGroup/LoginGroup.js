@@ -34,8 +34,10 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
     };
   }, []);
 
-  const removeToken = () => {
+  const logout = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('isSubscribed');
     setIsToken(false);
     navigate('/');
   };
@@ -68,7 +70,7 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
                   <button
                     type="button"
                     className="itemPathBtn"
-                    onClick={removeToken}
+                    onClick={logout}
                   >
                     로그아웃
                   </button>
