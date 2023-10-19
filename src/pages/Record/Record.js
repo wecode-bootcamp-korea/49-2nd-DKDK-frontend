@@ -12,28 +12,28 @@ const Record = () => {
       .then(res => res.json())
       .then(result => {
         workoutChart(result.numberCompareTime);
-        heartRateChart(
+        createLineChart(
           result.numberHeartbeatRecords,
           'red',
           true,
           'bpm',
           'recordHeartRate',
         );
-        heartRateChart(
+        createLineChart(
           result.numberWeightRecords,
           '#ffe86f',
           false,
           'kg',
           'recordWeight',
         );
-        heartRateChart(
+        createLineChart(
           result.numberMuscleRecords,
           '#6fe2ff',
           false,
           'kg',
           'recordBoneMuscle',
         );
-        heartRateChart(
+        createLineChart(
           result.numberFatRecords,
           '#6fff86',
           false,
@@ -91,7 +91,7 @@ const Record = () => {
     });
   };
 
-  const heartRateChart = (data, color, imageYn, unit, divName) => {
+  const createLineChart = (data, color, imageYn, unit, divName) => {
     am4core.useTheme(am4themes_animated);
 
     var chart = am4core.create(divName, am4charts.XYChart);
