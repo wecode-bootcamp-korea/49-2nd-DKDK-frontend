@@ -8,6 +8,7 @@ import LoginNaver from './pages/Login/LoginNaver';
 import ModiInfo from './pages/ModiInfo/ModiInfo';
 import MyPage from './pages/MyPage/MyPage';
 import Signup from './pages/Signup/Signup';
+import Record from './pages/Record/Record';
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
         <Route path="/modiInfo" element={<ModiInfo />} />
         <Route path="/my-page" element={<MyPage />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/record" element={<Record />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Signup.scss';
+import axios from 'axios';
 
 const Signup = () => {
   const [userData, setUserData] = useState({ gender: '남성', userType: '1' });
@@ -40,12 +41,24 @@ const Signup = () => {
   };
 
   const handleCheckNickName = () => {
-    setCheckNickName(true);
+    axios
+      .post('http://10.58.52.62:8000/user/nicknameCheck', {
+        nickname: userData.nickname,
+      })
+      .then(res => {
+        if (res.data.message === 'AVAILABLE_NICKNAME') {
+          alert('사용가능한 닉네임입니다.');
+          setCheckNickName(true);
+          document.getElementsByName('nickname')[0].disabled = true;
+        } else if (res.data.message === 'AVAILABLE_NICKNAME') {
+          alert('사용이 불가능한 닉네임입니다.');
+        } else {
+          alert('오류입니다. 관리자에게 문의하세요');
+        }
+      });
   };
 
-  const goSignUp = () => {
-    console.log(userData);
-  };
+  const goSignUp = () => {};
 
   const checkAllWrite =
     userData.height &&
