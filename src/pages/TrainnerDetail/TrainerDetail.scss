@@ -29,6 +29,11 @@
         color: #000;
         background-color: #ffe86f;
         border: 1px solid #fff;
+
+        &:hover {
+          color: #fff;
+          background-color: #000;
+        }
       }
 
       .profileWrap {
@@ -153,6 +158,11 @@
           color: #000;
           background-color: #ffe86f;
           border: 1px solid #fff;
+
+          &:hover {
+            color: #fff;
+            background-color: #000;
+          }
         }
       }
 
@@ -190,6 +200,11 @@
           color: #000;
           background-color: #ffe86f;
           border: 1px solid #fff;
+
+          &:hover {
+            color: #fff;
+            background-color: #000;
+          }
         }
       }
     }
