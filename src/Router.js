@@ -20,7 +20,7 @@ const Router = () => {
         <Route path="/login/kakao" element={<LoginKakao />} />
         <Route path="/modiInfo" element={<ModiInfo />} />
         <Route path="/my-page" element={<MyPage />} />
-        <Route path="/signup" element={<Signup />} />z
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );
