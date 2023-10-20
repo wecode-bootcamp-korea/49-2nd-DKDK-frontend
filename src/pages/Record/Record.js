@@ -45,12 +45,20 @@ const Record = () => {
 
   const handleRecord = e => {
     const { name, value } = e.target;
-    setMyRecord(pre => {
-      return { ...pre, [name]: value };
-    });
+    if (value === '') {
+      setMyRecord(prev => {
+        const { [name]: value, ...rest } = prev;
+        return rest;
+      });
+    } else {
+      setMyRecord(pre => {
+        return { ...pre, [name]: value };
+      });
+    }
   };
 
   const insertRecord = () => {
+    console.log(myRecord);
     if (Object.keys(myRecord).length < 1) {
       alert('값을 입력해주세요.');
     } else {
@@ -152,8 +160,8 @@ const Record = () => {
           <div className="subTitle">
             <h2>오늘 내 기록</h2>
           </div>
-          <div className="recordWrap">
-            <select name="workoutTime" onChange={e => handleRecord(e)}>
+          <div className="recordWrap" onChange={e => handleRecord(e)}>
+            <select name="workoutTime">
               <option value="">운동시간</option>
               <option value="0.5">30분</option>
               <option value="1">1시간</option>
@@ -168,26 +176,26 @@ const Record = () => {
             <input
               type="number"
               className="inputBox"
+              name="maxHeartrate"
               placeholder="심박수"
-              onChange={e => handleRecord(e)}
             />
             <input
               type="number"
               className="inputBox"
+              name="currentWeight"
               placeholder="체중"
-              onChange={e => handleRecord(e)}
             />
             <input
               type="number"
               className="inputBox"
+              name="muscleMass"
               placeholder="골격근량"
-              onChange={e => handleRecord(e)}
             />
             <input
               type="number"
               className="inputBox"
+              name="bodyFat"
               placeholder="체지방량"
-              onChange={e => handleRecord(e)}
             />
             <button className="recordBtn" onClick={insertRecord}>
               입력

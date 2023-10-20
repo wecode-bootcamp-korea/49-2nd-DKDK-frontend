@@ -49,7 +49,6 @@ const Signup = () => {
         if (res.data.message === 'AVAILABLE_NICKNAME') {
           alert('사용가능한 닉네임입니다.');
           setCheckNickName(true);
-          document.getElementsByName('nickname')[0].disabled = true;
         } else if (res.data.message === 'AVAILABLE_NICKNAME') {
           alert('사용이 불가능한 닉네임입니다.');
         } else {
@@ -105,6 +104,7 @@ const Signup = () => {
           onClick={handleCheckNickName}
           type="text"
           userData={userData}
+          checkNickName={checkNickName}
         />
         <Input
           lable="전화번호(-생략)"
