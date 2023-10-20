@@ -8,7 +8,6 @@ import LoginNaver from './pages/Login/LoginNaver';
 import ModiInfo from './pages/ModiInfo/ModiInfo';
 import MyPage from './pages/MyPage/MyPage';
 import Signup from './pages/Signup/Signup';
-import TrainerRegis from './pages/TrainerRegis/TrainerRegis';
 
 const Router = () => {
   return (
@@ -21,8 +20,7 @@ const Router = () => {
         <Route path="/login/kakao" element={<LoginKakao />} />
         <Route path="/modiInfo" element={<ModiInfo />} />
         <Route path="/my-page" element={<MyPage />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/trainer-regis" element={<TrainerRegis />} />
+        <Route path="/signup" element={<Signup />} />z
       </Routes>
     </BrowserRouter>
   );
