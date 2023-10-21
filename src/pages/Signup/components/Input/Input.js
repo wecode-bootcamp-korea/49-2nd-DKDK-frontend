@@ -14,6 +14,7 @@ const Input = ({
   useSecond,
   secondLable,
   secondName,
+  checkNickName,
 }) => {
   return (
     <div className="InfoWrap">
@@ -26,6 +27,7 @@ const Input = ({
           placeholder={lable}
           maxLength={maxLength}
           name={name}
+          disabled={checkNickName && true}
         />
         {useSecond && (
           <input
@@ -42,7 +44,7 @@ const Input = ({
           <button
             onClick={onClick}
             className="checkBtn"
-            disabled={!userData.nickname}
+            disabled={!userData.nickname || (checkNickName && true)}
           >
             중복확인
           </button>
