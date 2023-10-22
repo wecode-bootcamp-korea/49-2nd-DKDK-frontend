@@ -9,7 +9,7 @@ import UserPost from './pages/UserPost/UserPost';
 import ModiInfo from './pages/ModiInfo/ModiInfo';
 import MyPage from './pages/MyPage/MyPage';
 import Signup from './pages/Signup/Signup';
-
+import PostSignup from './pages/PostSignup/PostSignup';
 const Router = () => {
   return (
     <BrowserRouter>
@@ -23,6 +23,7 @@ const Router = () => {
         <Route path="/modiInfo" element={<ModiInfo />} />
         <Route path="/my-page" element={<MyPage />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/postsignup" element={<PostSignup />} />
       </Routes>
     </BrowserRouter>
   );

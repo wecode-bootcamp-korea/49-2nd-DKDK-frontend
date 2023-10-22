@@ -10,7 +10,7 @@
     margin-right: -30px;
     margin-left: -30px;
     flex-wrap: wrap;
-    height: 1300px;
+    height: 2000px;
     display: flex;
     justify-content: center;
   }
@@ -21,13 +21,15 @@
     padding-left: 30px;
   }
   .firstMessage,
-  .secondMessage {
+  .secondMessage,
+  .thirdMessage {
     position: relative;
     width: 760px;
     height: 600px;
     padding-right: 15px;
     padding-left: 15px;
 
+    .filates,
     .running,
     .training {
       width: 100%;
