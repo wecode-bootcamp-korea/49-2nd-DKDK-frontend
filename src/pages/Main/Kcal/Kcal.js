@@ -1,110 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
+import '../../../data/FOOD_KCAL';
 import './Kcal.scss';
+import FOOD_KCAL from '../../../data/FOOD_KCAL';
 
 const Kcal = () => {
+  const [isClick, setIsClick] = useState(false);
+  const [checkedList, setCheckedList] = useState([]);
+
+  const onCheckedList = (checked, kcal) => {
+    setIsClick(false);
+
+    if (checked) {
+      setCheckedList(prev => [...prev, kcal]);
+    } else if (!checked) {
+      setCheckedList(checkedList.filter(el => el !== kcal));
+    }
+  };
+
+  const kcalSum = checkedList.reduce(
+    (acc, currentValue) => acc + currentValue,
+    0,
+  );
+
+  const handleClick = () => {
+    setIsClick(true);
+  };
+
+  const reset = () => {
+    setIsClick(false);
+    setCheckedList([]);
+    document.getElementById('kcalCheck').reset();
+  };
+
   return (
     <section className="kcal">
       <div className="kcalContent">
         <div className="topWrap">
           <h4>Kcal: 나의 칼로리</h4>
-          <button type="button" className="kcalBtn">
-            계산하기
-          </button>
+          <div>
+            <button type="button" className="kcalBtn" onClick={reset}>
+              초기화
+            </button>
+            <button type="button" className="kcalBtn" onClick={handleClick}>
+              계산하기
+            </button>
+          </div>
         </div>
-        <form className="kcalCheck">
-          <label>
-            <input type="checkbox" name="kcal" /> 햄버기
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 피자
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 제육볶음
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 떡볶이
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 샐러드
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 갈비
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 삼겹살
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 돈까스
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 햄버기
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 피자
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 제육볶음
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 떡볶이
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 샐러드
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 갈비
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 삼겹살
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 돈까스
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 햄버기
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 피자
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 제육볶음
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 떡볶이
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 샐러드
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 갈비
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 삼겹살
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 돈까스
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 햄버기
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 피자
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 제육볶음
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 떡볶이
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 샐러드
-          </label>
-          <label>
-            <input type="checkbox" name="kcal" /> 갈비
-          </label>
+        <form id="kcalCheck">
+          {FOOD_KCAL.map(food => {
+            const { id, food_name, kcal } = food;
+            return (
+              <label key={id}>
+                <input
+                  type="checkbox"
+                  name="kcal"
+                  onChange={e => {
+                    onCheckedList(e.target.checked, kcal);
+                  }}
+                />
+                &nbsp;{food_name}
+              </label>
+            );
+          })}
         </form>
         <div className="kcalResultWrap">
-          칼로리: <span className="kcalResult">2508kcal</span>
+          칼로리:
+          <span className="kcalResult">{isClick && ` ${kcalSum}kcal`}</span>
         </div>
       </div>
     </section>
