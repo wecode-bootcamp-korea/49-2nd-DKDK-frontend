@@ -1,7 +1,7 @@
 import React from 'react';
 import './SubBannerNav.scss';
 
-const SubBannerNav = () => {
+const SubBannerNav = ({ moveToBmi, moveToKcal }) => {
   return (
     <div className="contentsWrap">
       <div className="subBanner">
@@ -12,7 +12,7 @@ const SubBannerNav = () => {
               현재 나의 BMI는 얼마일까? <br />
               BMI를 계산해드립니다.
             </p>
-            <button type="button" className="goContentBtn">
+            <button type="button" className="goContentBtn" onClick={moveToBmi}>
               나의 BMI
             </button>
           </div>
@@ -24,7 +24,7 @@ const SubBannerNav = () => {
               내가 먹은 음식, kcal는? <br />
               kcal를 계산해드립니다.
             </p>
-            <button type="button" className="goContentBtn">
+            <button type="button" className="goContentBtn" onClick={moveToKcal}>
               오늘의 Kcal
             </button>
           </div>

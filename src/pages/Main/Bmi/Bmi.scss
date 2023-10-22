@@ -3,13 +3,48 @@
   margin-bottom: 150px;
   color: #fff;
   background-color: #333;
+  transition: 0.5s;
+
+  &.blue {
+    background-color: #329ae3;
+  }
+
+  &.green {
+    background-color: #95c520;
+  }
+
+  &.yellow {
+    background-color: #ee942a;
+  }
+
+  &.red {
+    background-color: #f15232;
+  }
 
   .bmiContent {
     width: 1290px;
     height: 100%;
     margin: 0 auto;
     padding: 50px;
-    border: 1px solid #f15232;
+    border: 1px solid #fff;
+    background-color: #333;
+    transition: 0.5s;
+
+    &.blue {
+      border: 1px solid #329ae3;
+    }
+
+    &.green {
+      border: 1px solid #95c520;
+    }
+
+    &.yellow {
+      border: 1px solid #ee942a;
+    }
+
+    &.red {
+      border: 1px solid #f15232;
+    }
 
     h4 {
       margin-bottom: 30px;
@@ -151,7 +186,22 @@
           align-items: center;
           height: 130px;
           font-size: 22px;
-          color: #f15232;
+
+          &.blue {
+            color: #329ae3;
+          }
+
+          &.green {
+            color: #95c520;
+          }
+
+          &.yellow {
+            color: #ee942a;
+          }
+
+          &.red {
+            color: #f15232;
+          }
         }
       }
     }
