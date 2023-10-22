@@ -1,0 +1,50 @@
+.subBannerWrap {
+  display: flex;
+  width: 1290px;
+  height: 400px;
+  margin: 300px auto 150px auto;
+
+  .leftBannerWrap {
+    width: 630px;
+    height: 100%;
+    overflow: hidden;
+    margin-right: 30px;
+
+    img {
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+
+  .rightBannerWrap {
+    width: 630px;
+    height: 100%;
+
+    .topImgWrap {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 190px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        cursor: pointer;
+      }
+    }
+
+    .bottomImgWrap {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 190px;
+      overflow: hidden;
+      margin-top: 20px;
+
+      img {
+        width: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+}
