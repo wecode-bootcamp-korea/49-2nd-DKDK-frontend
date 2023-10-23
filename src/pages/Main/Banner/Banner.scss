@@ -1,0 +1,48 @@
+.bannerWrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 320px;
+  width: 100%;
+  height: 900px;
+  background-image: url(../../../../public/images/banner.jpg);
+
+  .contentWrap {
+    color: #fff;
+
+    h1 {
+      font-weight: 900;
+      font-size: 42px;
+    }
+
+    .goContent {
+      h2 {
+        margin: 18px 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: #ffe86f;
+      }
+
+      .text {
+        line-height: 24px;
+      }
+
+      .goSubscribe {
+        width: 130px;
+        height: 42px;
+        margin-top: 18px;
+        border-radius: 0.6rem;
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #000;
+        border: 1px solid #fff;
+
+        &:hover {
+          color: #fff;
+          background-color: #ffe86f;
+        }
+      }
+    }
+  }
+}
