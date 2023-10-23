@@ -5,6 +5,7 @@
   height: 100vh;
   background-color: rgba($color: #fff, $alpha: 0.3);
   overflow: scroll;
+  z-index: 100;
 
   .trainerRegis {
     background-color: #222;

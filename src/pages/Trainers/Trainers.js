@@ -4,6 +4,7 @@ import axios from 'axios';
 import TrainersGroup from './TrainersGroup/TrainersGroup';
 import SelectBox from './SelectBox/SelectBox';
 import './Trainers.scss';
+import TrainerRegis from '../TrainerRegis/TrainerRegis';
 
 const Trainers = () => {
   const navigate = useNavigate();
@@ -13,6 +14,11 @@ const Trainers = () => {
   const [sort, setSort] = useState();
   const [kind, setKind] = useState();
   const [gender, setGender] = useState();
+  const [isPost, setIsPost] = useState(false);
+
+  const handleIsPost = () => {
+    setIsPost(true);
+  };
 
   useEffect(() => {
     const axiosData = () => {
@@ -103,28 +109,36 @@ const Trainers = () => {
   }, [data, page]);
 
   return (
-    <section className="contentsWrap">
-      <div className="sortingBtn">
-        <button className="myBtn">내 글 보기</button>
-        <form className="checkboxWrap" onChange={isChecked}>
-          <label>
-            <input type="radio" name="gender" value="men" /> 남
-          </label>
-          <label>
-            <input type="radio" name="gender" value="women" /> 여
-          </label>
-          <input
-            type="reset"
-            value="성별 해제"
-            className="reset"
-            onClick={genderClear}
-          />
-        </form>
-        <SelectBox type="옵션" handleOption={handleOption} />
-        <SelectBox handleOption={handleOption} />
-      </div>
-      <TrainersGroup trainerListData={data} />
-    </section>
+    <>
+      {isPost && <TrainerRegis setIsPost={setIsPost} />}
+      <section className="contentsWrap">
+        <div className="sortingBtn">
+          <button type="button" className="postBtn" onClick={handleIsPost}>
+            등록하기
+          </button>
+          <button type="button" className="myBtn">
+            내 글 보기
+          </button>
+          <form className="checkboxWrap" onChange={isChecked}>
+            <label>
+              <input type="radio" name="gender" value="men" /> 남
+            </label>
+            <label>
+              <input type="radio" name="gender" value="women" /> 여
+            </label>
+            <input
+              type="reset"
+              value="성별 해제"
+              className="reset"
+              onClick={genderClear}
+            />
+          </form>
+          <SelectBox type="옵션" handleOption={handleOption} />
+          <SelectBox handleOption={handleOption} />
+        </div>
+        <TrainersGroup trainerListData={data} />
+      </section>
+    </>
   );
 };
 

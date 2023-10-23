@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import './TrainerRegis.scss';
 
-const TrainerRegis = () => {
+const TrainerRegis = ({ setIsPost }) => {
   const [form, setForm] = useState({
     place: '',
     price: '',
@@ -23,7 +24,14 @@ const TrainerRegis = () => {
   };
 
   const handleForm = (field, value) => {
+    // if(field === 'time'){
+    //   const newValue =
+    // }
     setForm(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleIsPost = () => {
+    setIsPost(false);
   };
 
   const allInputCheck =
@@ -34,11 +42,26 @@ const TrainerRegis = () => {
     form.text !== '' &&
     form.img !== '';
 
+  const postContent = () => {
+    axios
+      .post(`https://dummyjson.com/products/add`, form, {
+        header: { Authorization: localStorage.getItem('accessToken') },
+      })
+      .then(res => {
+        if (res.data.message === '메세지') {
+          alert('등록이 완료되었습니다.');
+          setIsPost(false);
+        } else {
+          alert('오류입니다. 관리자에게 문의하세요.');
+        }
+      });
+  };
+
   return (
     <div className="trainerRegisWrap">
       <div className="trainerRegis">
         <div className="contentsWrap">
-          <button type="button" className="closeBtn">
+          <button type="button" className="closeBtn" onClick={handleIsPost}>
             닫기
           </button>
           <section className="profileWrap">
@@ -146,6 +169,7 @@ const TrainerRegis = () => {
               type="button"
               className="goPayBottomBtn"
               disabled={!allInputCheck}
+              onClick={postContent}
             >
               등록하기
             </button>
