@@ -42,6 +42,10 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
     navigate('/');
   };
 
+  const goMy = () => {
+    navigate('/my-page');
+  };
+
   return (
     <div className="loginGroupWrap">
       {isToken ? (
@@ -51,6 +55,7 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
             onMouseEnter={mouseInEvent}
             onMouseLeave={mouseOutEvent}
             className="mypageBtn"
+            onClick={goMy}
           >
             마이페이지
           </button>
@@ -62,7 +67,7 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
             >
               <ul className="dropdownList">
                 <li className="dropdownItem">
-                  <Link to="/" className="itemPath">
+                  <Link to="/record" className="itemPath">
                     운동 기록
                   </Link>
                 </li>

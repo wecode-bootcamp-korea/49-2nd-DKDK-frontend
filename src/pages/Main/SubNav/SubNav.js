@@ -9,7 +9,7 @@ const PAGES_NAME_LIST = [
   { id: 4, path: '/4', name: 'DETAIL INFORMATION' },
 ];
 
-const EXCEPTIONAL_PATHS = ['/', '/login', 'signup', 'my-page', 'record'];
+const EXCEPTIONAL_PATHS = ['/', '/login', '/signup', '/my-page', '/record'];
 
 const SubNav = () => {
   const { pathname } = useLocation();
