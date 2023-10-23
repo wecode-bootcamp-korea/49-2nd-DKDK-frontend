@@ -1,7 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './TrainerRegis.scss';
 
 const TrainerRegis = () => {
+  const [place, setPlace] = useState('');
+  const [price, setPrice] = useState('');
+  const [time, setTime] = useState('');
+  const [period, setPeriod] = useState('');
+  const [text, setText] = useState('');
+
+  const handlePlace = e => {
+    const target = e.target.value;
+    setPlace(target);
+  };
+
+  const handlePrice = e => {
+    const target = e.target.value;
+    setPrice(target);
+  };
+
+  const handleTime = e => {
+    const target = e.target.value;
+    setTime(target);
+  };
+
+  const handlePeriod = e => {
+    const target = e.target.value;
+    setPeriod(target);
+  };
+
+  const handleText = e => {
+    const target = e.target.value;
+    setText(target);
+  };
+
   return (
     <div className="trainerRegisWrap">
       <div className="trainerRegis">
@@ -33,6 +64,7 @@ const TrainerRegis = () => {
                       type="text"
                       id="region"
                       placeholder="가능한 지역을 입력해주세요."
+                      onChange={handlePlace}
                     />
                   </div>
                   <div className="regisInput">
@@ -43,6 +75,7 @@ const TrainerRegis = () => {
                       type="number"
                       id="cost"
                       placeholder="희망하는 가격을 입력해주세요."
+                      onChange={handlePrice}
                     />
                   </div>
                   <div className="regisInput">
@@ -53,16 +86,20 @@ const TrainerRegis = () => {
                       type="text"
                       id="time"
                       placeholder="가능한 시간을 입력해주세요."
+                      onChange={handleTime}
                     />
                   </div>
                 </div>
                 <div className="infoRightWrap">
                   <div className="selectWrap">
                     <p className="selectName">기간 선택</p>
-                    <select className="selectOption">
-                      <option>1개월</option>
-                      <option>2개월</option>
-                      <option>3개월</option>
+                    <select className="selectOption" onChange={handlePeriod}>
+                      <option selected disabled hidden>
+                        기간 선택
+                      </option>
+                      <option value="1">1개월</option>
+                      <option value="2">2개월</option>
+                      <option value="3">3개월</option>
                     </select>
                   </div>
                 </div>
@@ -82,6 +119,7 @@ const TrainerRegis = () => {
                 <textarea
                   className="textInput"
                   placeholder="글을 입력해주세요."
+                  onChange={handleText}
                 />
               </div>
             </div>

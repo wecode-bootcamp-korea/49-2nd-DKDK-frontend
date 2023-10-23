@@ -152,6 +152,14 @@
                 border-radius: 4px;
                 padding-left: 16px;
                 font-size: 14px;
+                color: #fff;
+                background-color: transparent;
+                border: 1px solid #fff;
+
+                option {
+                  width: 100%;
+                  background-color: #333;
+                }
               }
             }
           }
