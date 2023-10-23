@@ -100,8 +100,6 @@ const Signup = () => {
         });
     }
   };
-  
-  const goSignUp = () => {};
 
   const checkAllWrite =
     userData.height &&
