@@ -11,6 +11,7 @@ import Trainers from './pages/Trainers/Trainers';
 import ModiInfo from './pages/ModiInfo/ModiInfo';
 import MyPage from './pages/MyPage/MyPage';
 import Signup from './pages/Signup/Signup';
+import PostSignup from './pages/PostSignup/PostSignup';
 import Record from './pages/Record/Record';
 
 const Router = () => {
@@ -28,6 +29,7 @@ const Router = () => {
         <Route path="/modiInfo" element={<ModiInfo />} />
         <Route path="/my-page" element={<MyPage />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/postsignup" element={<PostSignup />} />
         <Route path="/record" element={<Record />} />
       </Routes>
     </BrowserRouter>
