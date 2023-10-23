@@ -34,10 +34,16 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
     };
   }, []);
 
-  const removeToken = () => {
+  const logout = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('isSubscribed');
     setIsToken(false);
     navigate('/');
+  };
+
+  const goMy = () => {
+    navigate('/my-page');
   };
 
   return (
@@ -49,6 +55,7 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
             onMouseEnter={mouseInEvent}
             onMouseLeave={mouseOutEvent}
             className="mypageBtn"
+            onClick={goMy}
           >
             마이페이지
           </button>
@@ -60,7 +67,7 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
             >
               <ul className="dropdownList">
                 <li className="dropdownItem">
-                  <Link to="/" className="itemPath">
+                  <Link to="/record" className="itemPath">
                     운동 기록
                   </Link>
                 </li>
@@ -68,7 +75,7 @@ const LoginGroup = ({ isMouseIn, mouseInEvent, mouseOutEvent }) => {
                   <button
                     type="button"
                     className="itemPathBtn"
-                    onClick={removeToken}
+                    onClick={logout}
                   >
                     로그아웃
                   </button>
