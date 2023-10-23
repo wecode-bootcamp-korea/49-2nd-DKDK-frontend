@@ -24,9 +24,6 @@ const TrainerRegis = ({ setIsPost }) => {
   };
 
   const handleForm = (field, value) => {
-    // if(field === 'time'){
-    //   const newValue =
-    // }
     setForm(prev => ({ ...prev, [field]: value }));
   };
 
@@ -44,7 +41,7 @@ const TrainerRegis = ({ setIsPost }) => {
 
   const postContent = () => {
     axios
-      .post(`https://dummyjson.com/products/add`, form, {
+      .post('url', form, {
         header: { Authorization: localStorage.getItem('accessToken') },
       })
       .then(res => {
