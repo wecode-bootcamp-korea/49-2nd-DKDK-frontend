@@ -1,7 +1,18 @@
-import React from 'react';
-import './UserPost.scss';
+import React, { useState, useEffect } from 'react';
+import './CommunityList.scss';
 
-const UserPost = () => {
+const CommunityList = () => {
+  /*const [data, setData] = useState([]);
+
+  useEffect(() => {
+    feach('#/data/CommunityPost.json') //<-- 백엔드 로컬주소 받아야함
+      .then(res => res.json())
+      .then(result => setData(result.data));
+  }, []);*/
+
+  // 1. 백엔드와 mock데이터 형태 확인 및 조정
+  // 2. data state에 map 메서드 활용하여 각 요소들 화면에 그려주기
+
   return (
     <div className="contentsWrap">
       <div className="container">
@@ -15,9 +26,7 @@ const UserPost = () => {
                   alt="달리기"
                 />
                 <div className="bodyBox">
-                  <div className="title">
-                    <a href="./PostDetail">필라테스에 대해서...</a>
-                  </div>
+                  <div className="title">필라테스는..</div>
                   <span className="postContent">
                     첫째, 짧은 시간에 군살을 뺄 수 있다.
                     <br />
@@ -34,7 +43,7 @@ const UserPost = () => {
                   </span>
                   <div>
                     <img src="/images/like.png" alt="좋아요" />
-                    {<span className="number">10개</span> /*기능구현 예정 */}
+                    <span className="number">10개</span>
                     <img src="/images/comment.png" alt="댓글" />
                     <span className="number">5개</span>
                   </div>
@@ -47,9 +56,7 @@ const UserPost = () => {
                   alt="달리기"
                 />
                 <div className="bodyBox">
-                  <div className="title">
-                    <a href="./PostDetail">러닝에 대해서...</a>
-                  </div>
+                  <div className="title">러닝에 대해서...</div>
                   <span className="postContent">
                     첫째, 러닝을 하면 체지방이 줄고 근육량이 늘면서 체격이
                     좋아질 뿐만 아니라 바이러스로부터 견뎌낼 수 있는 방어 체력이
@@ -61,7 +68,7 @@ const UserPost = () => {
                   </span>
                   <div>
                     <img src="/images/like.png" alt="좋아요" />
-                    {<span className="number">10개</span> /*기능구현 예정 */}
+                    <span className="number">10개</span>
                     <img src="/images/comment.png" alt="댓글" />
                     <span className="number">5개</span>
                   </div>
@@ -74,9 +81,7 @@ const UserPost = () => {
                   alt="헬스트레이닝"
                 />
                 <div className="bodyBox">
-                  <div className="title">
-                    <a href="./PostDetail">웨이트 트레이닝의 중요성</a>
-                  </div>
+                  <div className="title">웨이트 트레이닝의 중요성</div>
                   <span className="postContent">
                     첫째, 부상의 위험에서 벗어날 수 있다. 혼자서 부정확한
                     동작으로 무거운 무게를 들 경우 모든관절과 근육인대에 손상을
@@ -90,26 +95,15 @@ const UserPost = () => {
                   </span>
                   <div>
                     <img src="/images/like.png" alt="좋아요" />
-                    {
-                      <span className="number">
-                        10개
-                      </span> /*기능구현 예정 위와 같음 */
-                    }
+
+                    <span className="number">10개</span>
+
                     <img src="/images/comment.png" alt="댓글" />
-                    {
-                      <span className="number">
-                        5
-                      </span> /*기능구현 예정 위와 같음  */
-                    }
+
+                    <span className="number">5</span>
                   </div>
                 </div>
-                <button>
-                  {
-                    <a href="./PostSignup">
-                      글쓰기
-                    </a> /* on click 이벤트 구현예정 */
-                  }
-                </button>
+                <button>글쓰기</button>
               </div>
             </div>
           </div>
@@ -119,4 +113,4 @@ const UserPost = () => {
   );
 };
 
-export default UserPost;
+export default CommunityList;

@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
-import './PostSignup.scss';
+import './CommunityPost.scss';
+import { useNavigate } from 'react-router-dom/dist';
 
-const PostSignup = () => {
+const CommunityPost = () => {
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef();
   const saveImgFile = () => {
@@ -13,6 +14,11 @@ const PostSignup = () => {
     };
   };
 
+  const navigate = useNavigate();
+
+  const goTolist = () => {
+    navigate('/communitylist');
+  };
   return (
     <div className="contentsWrap">
       <div className="containerWrap">
@@ -42,10 +48,12 @@ const PostSignup = () => {
           <textarea placeholder="글을 입력해주세요" />
         </div>
         <div className="registBtn">
-          <button className="btn">등록</button>
+          <button className="btn" onClick={goTolist}>
+            등록
+          </button>
         </div>
       </div>
     </div>
   );
 };
-export default PostSignup;
+export default CommunityPost;
