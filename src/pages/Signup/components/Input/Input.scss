@@ -23,6 +23,11 @@
       &.w40 {
         width: 40%;
       }
+
+      &:disabled {
+        color: #979292;
+        background-color: #333;
+      }
     }
 
     .userLabel {
