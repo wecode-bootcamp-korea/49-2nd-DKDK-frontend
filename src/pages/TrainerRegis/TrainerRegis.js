@@ -26,15 +26,14 @@ const TrainerRegis = () => {
     setForm(prev => ({ ...prev, [field]: value }));
   };
 
-  // const allInputCheck =
-  //   form.place &&
-  //   form.price &&
-  //   form.time &&
-  //   form.period &&
-  //   form.text &&
-  //   form.img;
+  const allInputCheck =
+    form.place !== '' &&
+    form.price !== '' &&
+    form.time !== '' &&
+    form.period !== '' &&
+    form.text !== '' &&
+    form.img !== '';
 
-  // console.log(allInputCheck);
   return (
     <div className="trainerRegisWrap">
       <div className="trainerRegis">
@@ -144,7 +143,7 @@ const TrainerRegis = () => {
           </section>
           <div className="bottomBtnWrap">
             <button
-              type="submit"
+              type="button"
               className="goPayBottomBtn"
               disabled={!allInputCheck}
             >

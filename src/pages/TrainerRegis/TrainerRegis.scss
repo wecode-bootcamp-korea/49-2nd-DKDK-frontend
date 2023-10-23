@@ -244,6 +244,17 @@
           background-color: #ffe86f;
           border: 1px solid #fff;
 
+          &:disabled {
+            color: #fff;
+            background-color: #333;
+            cursor: auto;
+
+            &:hover {
+              color: #fff;
+              background-color: #333;
+            }
+          }
+
           &:hover {
             color: #fff;
             background-color: #000;
