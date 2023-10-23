@@ -1,0 +1,251 @@
+.trainerRegisWrap {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba($color: #fff, $alpha: 0.3);
+  overflow: scroll;
+
+  .trainerRegis {
+    background-color: #222;
+    width: 1290px;
+    margin: 0 auto;
+
+    .contentsWrap {
+      position: relative;
+      padding: 80px 60px 0 60px;
+      margin-bottom: 0;
+      color: #fff;
+
+      .closeBtn {
+        position: absolute;
+        top: 30px;
+        right: 60px;
+        width: 130px;
+        height: 42px;
+        border-radius: 0.6rem;
+        font-size: 16px;
+        font-weight: bold;
+        color: #000;
+        background-color: #ffe86f;
+        border: 1px solid #fff;
+
+        &:hover {
+          color: #fff;
+          background-color: #000;
+        }
+      }
+
+      .profileWrap {
+        display: flex;
+        gap: 30px;
+        height: 430px;
+        margin-bottom: 60px;
+
+        .profileInfoWrap {
+          width: 350px;
+          border-radius: 8px;
+          border: 1px solid #fff;
+          overflow: hidden;
+
+          .profileImgWrap {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+
+            .profileImg {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+            }
+          }
+
+          .profileName {
+            display: flex;
+            align-items: center;
+            height: 80px;
+            padding-left: 16px;
+            font-weight: bold;
+            font-size: 18px;
+            font-style: italic;
+            color: #ffe86f;
+            background-color: #000;
+          }
+        }
+
+        .inputInfoWrap {
+          width: 790px;
+
+          .inputNameWrap {
+            position: relative;
+            height: 10%;
+
+            .inputName {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              position: absolute;
+              bottom: -18px;
+              left: 18px;
+              width: 160px;
+              height: 36px;
+              font-size: 18px;
+              font-weight: bold;
+              border-radius: 8px;
+              border: 1px solid #fff;
+              background-color: #333;
+            }
+          }
+
+          .inputInfo {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 90%;
+            background-color: #333;
+            border-radius: 8px;
+
+            .infoLeftWrap {
+              width: 50%;
+              padding: 30px 0 30px 30px;
+
+              .regisInput {
+                width: 100%;
+                margin-bottom: 30px;
+
+                .regisName {
+                  display: inline-block;
+                  width: 30%;
+                  padding-left: 16px;
+                }
+
+                #region,
+                #cost,
+                #time {
+                  width: 70%;
+                  height: 42px;
+                  border-radius: 4px;
+                  border: 1px solid #ffe86f;
+                  padding-left: 8px;
+                  font-size: 14px;
+                  background-color: transparent;
+                  color: #fff;
+                }
+              }
+            }
+
+            .infoRightWrap {
+              width: 50%;
+              padding: 0px 46px 30px 46px;
+
+              .selectName {
+                display: flex;
+                align-items: center;
+                height: 42px;
+                margin-bottom: 15px;
+              }
+
+              .selectOption {
+                width: 100%;
+                height: 42px;
+                border-radius: 4px;
+                padding-left: 16px;
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+
+      .prInputWrap {
+        display: flex;
+        gap: 30px;
+        margin-top: 60px;
+        padding: 30px;
+
+        .prImgInputWrap {
+          width: 373px;
+          height: 373px;
+          padding: 0 60px;
+
+          .prImgPreview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 253px;
+            height: 253px;
+            overflow: hidden;
+
+            img {
+              width: 100%;
+            }
+          }
+
+          .imgUpload {
+            margin: 30px 0;
+          }
+        }
+
+        .prTextInputWrap {
+          width: 700px;
+          height: 800px;
+          padding-left: 60px;
+
+          .textInputName {
+            display: flex;
+            align-items: center;
+            width: 640px;
+            height: 80px;
+            padding-left: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+          }
+
+          .textWarp {
+            width: 640px;
+            height: 720px;
+
+            .textInput {
+              width: 640px;
+              height: 720px;
+              padding: 16px;
+              border: none;
+              border-radius: 4px;
+              border: 1px solid #ffe86f;
+              background-color: transparent;
+              resize: none;
+              color: #fff;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+
+      .bottomBtnWrap {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        padding: 60px 0;
+
+        .goPayBottomBtn {
+          width: 130px;
+          height: 42px;
+          border-radius: 0.6rem;
+          font-size: 16px;
+          font-weight: bold;
+          color: #000;
+          background-color: #ffe86f;
+          border: 1px solid #fff;
+
+          &:hover {
+            color: #fff;
+            background-color: #000;
+          }
+        }
+      }
+    }
+  }
+}
