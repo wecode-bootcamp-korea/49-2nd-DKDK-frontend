@@ -4,12 +4,9 @@ import './Kcal.scss';
 import FOOD_KCAL from '../../../data/FOOD_KCAL';
 
 const Kcal = () => {
-  const [isClick, setIsClick] = useState(false);
   const [checkedList, setCheckedList] = useState([]);
 
   const onCheckedList = (checked, kcal) => {
-    setIsClick(false);
-
     if (checked) {
       setCheckedList(prev => [...prev, kcal]);
     } else if (!checked) {
@@ -22,12 +19,7 @@ const Kcal = () => {
     0,
   );
 
-  const handleClick = () => {
-    setIsClick(true);
-  };
-
   const reset = () => {
-    setIsClick(false);
     setCheckedList([]);
     document.getElementById('kcalCheck').reset();
   };
@@ -41,7 +33,7 @@ const Kcal = () => {
             <button type="button" className="kcalBtn" onClick={reset}>
               초기화
             </button>
-            <button type="button" className="kcalBtn" onClick={handleClick}>
+            <button type="button" className="kcalBtn">
               계산하기
             </button>
           </div>
@@ -65,7 +57,7 @@ const Kcal = () => {
         </form>
         <div className="kcalResultWrap">
           칼로리:
-          <span className="kcalResult">{isClick && ` ${kcalSum}kcal`}</span>
+          <span className="kcalResult">{kcalSum}kcal</span>
         </div>
       </div>
     </section>
