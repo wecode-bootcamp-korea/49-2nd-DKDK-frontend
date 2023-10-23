@@ -1,38 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './TrainerRegis.scss';
 
 const TrainerRegis = () => {
-  const [place, setPlace] = useState('');
-  const [price, setPrice] = useState('');
-  const [time, setTime] = useState('');
-  const [period, setPeriod] = useState('');
-  const [text, setText] = useState('');
-
-  const handlePlace = e => {
-    const target = e.target.value;
-    setPlace(target);
+  const [form, setForm] = useState({
+    place: '',
+    price: '',
+    time: '',
+    period: '',
+    text: '',
+    img: '',
+  });
+  const [imgFile, setImgFile] = useState('');
+  const imgRef = useRef();
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+      setForm(prev => ({ ...prev, img: reader.result }));
+    };
   };
 
-  const handlePrice = e => {
-    const target = e.target.value;
-    setPrice(target);
+  const handleForm = (field, value) => {
+    setForm(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleTime = e => {
-    const target = e.target.value;
-    setTime(target);
-  };
+  // const allInputCheck =
+  //   form.place &&
+  //   form.price &&
+  //   form.time &&
+  //   form.period &&
+  //   form.text &&
+  //   form.img;
 
-  const handlePeriod = e => {
-    const target = e.target.value;
-    setPeriod(target);
-  };
-
-  const handleText = e => {
-    const target = e.target.value;
-    setText(target);
-  };
-
+  // console.log(allInputCheck);
   return (
     <div className="trainerRegisWrap">
       <div className="trainerRegis">
@@ -64,7 +66,7 @@ const TrainerRegis = () => {
                       type="text"
                       id="region"
                       placeholder="가능한 지역을 입력해주세요."
-                      onChange={handlePlace}
+                      onChange={e => handleForm('place', e.target.value)}
                     />
                   </div>
                   <div className="regisInput">
@@ -75,7 +77,7 @@ const TrainerRegis = () => {
                       type="number"
                       id="cost"
                       placeholder="희망하는 가격을 입력해주세요."
-                      onChange={handlePrice}
+                      onChange={e => handleForm('price', e.target.value)}
                     />
                   </div>
                   <div className="regisInput">
@@ -86,14 +88,17 @@ const TrainerRegis = () => {
                       type="text"
                       id="time"
                       placeholder="가능한 시간을 입력해주세요."
-                      onChange={handleTime}
+                      onChange={e => handleForm('time', e.target.value)}
                     />
                   </div>
                 </div>
                 <div className="infoRightWrap">
                   <div className="selectWrap">
                     <p className="selectName">기간 선택</p>
-                    <select className="selectOption" onChange={handlePeriod}>
+                    <select
+                      className="selectOption"
+                      onChange={e => handleForm('period', e.target.value)}
+                    >
                       <option selected disabled hidden>
                         기간 선택
                       </option>
@@ -109,9 +114,22 @@ const TrainerRegis = () => {
           <section className="prInputWrap">
             <div className="prImgInputWrap">
               <div className="prImgPreview">
-                <img src={process.env.PUBLIC_URL + '/images/logo_white.png'} />
+                <label className="imgLabel" htmlFor="profileImg">
+                  {imgFile ? (
+                    <img src={imgFile} alt="등록한이미지 미리보기" />
+                  ) : (
+                    <img src="/images/logo_white.png" alt="기본이미지" />
+                  )}
+                </label>
+                <input
+                  className="imgInput"
+                  type="file"
+                  accept="image/*"
+                  id="profileImg"
+                  onChange={saveImgFile}
+                  ref={imgRef}
+                />
               </div>
-              <input type="file" accept="image/*" className="imgUpload" />
             </div>
             <div className="prTextInputWrap">
               <p className="textInputName">글을 입력해주세요</p>
@@ -119,13 +137,17 @@ const TrainerRegis = () => {
                 <textarea
                   className="textInput"
                   placeholder="글을 입력해주세요."
-                  onChange={handleText}
+                  onChange={e => handleForm('text', e.target.value)}
                 />
               </div>
             </div>
           </section>
           <div className="bottomBtnWrap">
-            <button type="button" className="goPayBottomBtn">
+            <button
+              type="submit"
+              className="goPayBottomBtn"
+              disabled={!allInputCheck}
+            >
               등록하기
             </button>
           </div>
