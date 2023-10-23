@@ -1,21 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from './components/Input/Input';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Signup.scss';
+import axios from 'axios';
 
 const Signup = () => {
-  const [userData, setUserData] = useState({ gender: '남성', userType: '1' });
   const [date, setDate] = useState(new Date());
+
+  let nowDate = new Date();
+  const nowYear = nowDate.getFullYear();
+  const nowMonth = nowDate.getMonth() + 1;
+  const nowDay = nowDate.getDate();
+  nowDate = nowYear + '-' + nowMonth + '-' + nowDay;
+
+  const [userData, setUserData] = useState({
+    gender: '남성',
+    userType: '1',
+    birthday: nowDate,
+  });
+
   const [checkNickName, setCheckNickName] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('newUserToken');
+    };
+  }, []);
+
   const handleInput = e => {
     const { name, value } = e.target;
-
     if (name === 'phoneNumber') {
-      const value = e.target.value
-        .replace(/[^0-9]/g, '')
-        .replace(/([0-9]{3})([0-9]{3,4})([0-9]{4})/g, '$1-$2-$3');
+      const value = e.target.value.replace(/[^0-9]/g, '');
       e.target.value = value;
       setUserData(pre => {
         return { ...pre, [name]: value };
@@ -40,11 +60,45 @@ const Signup = () => {
   };
 
   const handleCheckNickName = () => {
-    setCheckNickName(true);
+    axios
+      .post('http://10.58.52.62:8000/user/nicknameCheck', {
+        nickname: userData.nickname,
+      })
+      .then(res => {
+        if (res.data.message === 'AVAILABLE_NICKNAME') {
+          alert('사용가능한 닉네임입니다.');
+          setCheckNickName(true);
+        } else if (res.data.message === 'AVAILABLE_NICKNAME') {
+          alert('사용이 불가능한 닉네임입니다.');
+        } else {
+          alert('오류입니다. 관리자에게 문의하세요');
+        }
+      });
   };
 
   const goSignUp = () => {
-    console.log(userData);
+    const phoneNumberRegex = /^01[016-9]\d{3,4}\d{4}$/;
+
+    if (Math.sign(userData.weight) === -1) {
+      alert('몸무게 값을 확인해주세요.');
+    } else if (Math.sign(userData.height) === -1) {
+      alert('키 값을 확인해주세요.');
+    } else if (!phoneNumberRegex.test(userData.phoneNumber)) {
+      alert('전화번호 값을 확인해주세요.');
+    } else {
+      axios
+        .post(`${process.env.REACT_APP_TEST_API}/user/signup`, userData, {
+          headers: { Authorization: localStorage.getItem('newUserToken') },
+        })
+        .then(res => {
+          if (res.data.message === 'SIGNUP_SUCCESS') {
+            alert('가입이 완료되었습니다.');
+            navigate('/login');
+          } else {
+            alert('오류입니다. 관리자에게 문의하세요.');
+          }
+        });
+    }
   };
 
   const checkAllWrite =
@@ -92,6 +146,7 @@ const Signup = () => {
           onClick={handleCheckNickName}
           type="text"
           userData={userData}
+          checkNickName={checkNickName}
         />
         <Input
           lable="전화번호(-생략)"
@@ -99,7 +154,7 @@ const Signup = () => {
           width="w100"
           name="phoneNumber"
           onChange={handleInput}
-          maxLength={13}
+          maxLength={11}
           userData={userData}
         />
         <div className="genderWrap">
