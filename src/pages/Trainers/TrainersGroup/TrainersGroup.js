@@ -1,16 +1,29 @@
 import React from 'react';
 import './TrainersGroup.scss';
 
-const TrainersGroup = ({ trainerListData }) => {
+const TrainersGroup = ({ trainerListData, setIsDetail, setPostId }) => {
+  const handlePostId = e => {
+    const id = e.currentTarget.value;
+    setPostId(id);
+    setIsDetail(true);
+  };
+
   return (
     <ul className="trainersWrap">
       {trainerListData.map((trainer, index) => {
-        const { thumbnail, title, category, price, brand } = trainer;
+        const { id, thumbnail, title, category, price, brand } = trainer;
         return (
-          <li className="trainerItem" key={index}>
+          <li
+            className="trainerItem"
+            key={index}
+            value={id}
+            onClick={e => {
+              handlePostId(e);
+            }}
+          >
             <div className="trainerImg">
               {thumbnail ? (
-                <img src={trainer.thumbnail} alt="프로필 이미지" />
+                <img src={thumbnail} alt="프로필 이미지" />
               ) : (
                 <img
                   src={process.env.PUBLIC_URL + '/images/logo_white.png'}

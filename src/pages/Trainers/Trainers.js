@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TrainersGroup from './TrainersGroup/TrainersGroup';
 import SelectBox from './SelectBox/SelectBox';
-import './Trainers.scss';
 import TrainerRegis from '../TrainerRegis/TrainerRegis';
+import TrainerDetail from '../TrainerDetail/TrainerDetail';
+import './Trainers.scss';
 
 const Trainers = () => {
-  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
@@ -15,10 +15,25 @@ const Trainers = () => {
   const [kind, setKind] = useState();
   const [gender, setGender] = useState();
   const [isPost, setIsPost] = useState(false);
+  const [isDetail, setIsDetail] = useState(false);
+  const [isTrainer, setIsTrainer] = useState(false);
+  const [postId, setPostId] = useState('');
 
   const handleIsPost = () => {
     setIsPost(true);
   };
+
+  useEffect(() => {
+    const isTrainer = () => {
+      const trainer = localStorage.getItem('userType');
+      if (trainer == 1) {
+        setIsTrainer(false);
+      } else if (trainer == 2) {
+        setIsTrainer(true);
+      }
+    };
+    isTrainer();
+  }, []);
 
   useEffect(() => {
     const axiosData = () => {
@@ -29,21 +44,22 @@ const Trainers = () => {
       if (kind) {
         nowUrl += `&kind=${kind}`;
       }
-
       if (gender) {
         nowUrl += `&gender=${gender}`;
       }
 
-      axios(`https://dummyjson.com/products?${nowUrl}`).then(
-        function (response) {
+      axios
+        .get(`https://dummyjson.com/products?${nowUrl}`, {
+          header: { Authorization: localStorage.getItem('accessToken') },
+        })
+        .then(function (response) {
           if (offset === 0) {
             setPage(1);
             setData([...response.data.products]);
           } else {
             setData(prevData => prevData.concat(response.data.products));
           }
-        },
-      );
+        });
     };
 
     axiosData();
@@ -108,17 +124,43 @@ const Trainers = () => {
     };
   }, [data, page]);
 
+  // const myContent = () => {
+  //   setOffset(0);
+  //   axios
+  //     .get(
+  //       'https://dummyjson.com/products?offset=0&limit=6',
+  // , {
+  //   header: { Authorization: localStorage.getItem('accessToken') },
+  // }
+  //     )
+  //     .then(function (response) {
+  //       setPage(1);
+  //       setData([...response.data.products]);
+  //     });
+  // };
+
   return (
     <>
       {isPost && <TrainerRegis setIsPost={setIsPost} />}
+      {isDetail && (
+        <TrainerDetail
+          setIsDetail={setIsDetail}
+          postId={postId}
+          isTrainer={isTrainer}
+        />
+      )}
       <section className="contentsWrap">
         <div className="sortingBtn">
-          <button type="button" className="postBtn" onClick={handleIsPost}>
-            등록하기
-          </button>
-          <button type="button" className="myBtn">
-            내 글 보기
-          </button>
+          {isTrainer && (
+            <button type="button" className="postBtn" onClick={handleIsPost}>
+              등록하기
+            </button>
+          )}
+          {isTrainer && (
+            <button type="button" className="myBtn">
+              내 글 보기
+            </button>
+          )}
           <form className="checkboxWrap" onChange={isChecked}>
             <label>
               <input type="radio" name="gender" value="men" /> 남
@@ -136,7 +178,11 @@ const Trainers = () => {
           <SelectBox type="옵션" handleOption={handleOption} />
           <SelectBox handleOption={handleOption} />
         </div>
-        <TrainersGroup trainerListData={data} />
+        <TrainersGroup
+          trainerListData={data}
+          setIsDetail={setIsDetail}
+          setPostId={setPostId}
+        />
       </section>
     </>
   );
