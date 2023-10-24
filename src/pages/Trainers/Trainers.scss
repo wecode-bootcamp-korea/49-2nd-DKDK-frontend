@@ -1,0 +1,59 @@
+.contentsWrap {
+  .sortingBtn {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    position: relative;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    .postBtn {
+      position: absolute;
+      left: 0;
+      width: 8em;
+      padding: 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      border-radius: 0.4rem;
+      background-color: #000;
+      border: 1px solid #fff;
+
+      &:hover {
+        background-color: #ffe86f;
+        color: #000;
+      }
+    }
+
+    .myBtn {
+      width: 8em;
+      padding: 0.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 0.4rem;
+      background-color: #ffe86f;
+      border: 1px solid #fff;
+
+      &:hover {
+        background-color: #000;
+        color: #fff;
+      }
+    }
+
+    .checkboxWrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: #ffe86f;
+
+      .reset {
+        padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+        border: none;
+        border-radius: 0.4rem;
+        background-color: #000;
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+}

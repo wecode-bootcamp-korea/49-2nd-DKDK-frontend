@@ -7,7 +7,7 @@ import './Header.scss';
 const PATH_NAV = [
   { id: 1, name: '홈', path: '/' },
   { id: 2, name: '커뮤니티', path: '' },
-  { id: 3, name: '트레이너 매칭', path: '' },
+  { id: 3, name: '트레이너 매칭', path: '/trainer' },
   { id: 4, name: '구독하기', path: '' },
 ];
 

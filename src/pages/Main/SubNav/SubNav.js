@@ -3,13 +3,22 @@ import { Link, useLocation } from 'react-router-dom';
 import './SubNav.scss';
 
 const PAGES_NAME_LIST = [
-  { id: 1, path: '/1', name: 'COMMUNITY' },
-  { id: 2, path: '/2', name: 'TRAINER MATCHING' },
+  { id: 1, path: '/user-post', name: 'COMMUNITY' },
+  { id: 2, path: '/trainer', name: 'TRAINER MATCHING' },
   { id: 3, path: '/3', name: 'SUBSCRIBE' },
-  { id: 4, path: '/4', name: 'DETAIL INFORMATION' },
 ];
 
-const EXCEPTIONAL_PATHS = ['/', '/login'];
+const EXCEPTIONAL_PATHS = [
+  '/',
+  '/login',
+  '/login/naver',
+  '/login/kakao',
+  '/signup',
+  '/my-page',
+  '/record',
+  '/modiInfo',
+  '/postsignup',
+];
 
 const SubNav = () => {
   const { pathname } = useLocation();

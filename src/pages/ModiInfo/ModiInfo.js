@@ -1,50 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Input from './components/Input/Input';
+import React, { useState, useRef } from 'react';
+import Input from '../Signup/components/Input/Input';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import 'react-datepicker/dist/react-datepicker.css';
-import './Signup.scss';
-import axios from 'axios';
+import './ModiInfo.scss';
 
-const Signup = () => {
+const ModiInfo = () => {
+  const [userData, setUserData] = useState({});
   const [date, setDate] = useState(new Date());
-
-  let nowDate = new Date();
-  const nowYear = nowDate.getFullYear();
-  const nowMonth = nowDate.getMonth() + 1;
-  const nowDay = nowDate.getDate();
-  nowDate = nowYear + '-' + nowMonth + '-' + nowDay;
-
-  const [userData, setUserData] = useState({
-    gender: '남성',
-    userType: '1',
-    birthday: nowDate,
-  });
-
-  const [checkNickName, setCheckNickName] = useState(false);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    return () => {
-      localStorage.removeItem('newUserToken');
+  const [imgFile, setImgFile] = useState('');
+  const imgRef = useRef();
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
     };
-  }, []);
+  };
 
   const handleInput = e => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+
     if (name === 'phoneNumber') {
-      const value = e.target.value.replace(/[^0-9]/g, '');
+      const value = e.target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/([0-9]{3})([0-9]{3,4})([0-9]{4})/g, '$1-$2-$3');
       e.target.value = value;
-      setUserData(pre => {
-        return { ...pre, [name]: value };
-      });
-    } else {
-      setUserData(pre => {
-        return { ...pre, [name]: value };
-      });
+    } else if (type === 'number') {
+      const value = e.target.value.replace(/[^0-9.]/g, '');
+      e.target.value = value;
     }
+    setUserData(pre => {
+      return { ...pre, [name]: value };
+    });
   };
 
   const handleDate = data => {
@@ -59,102 +48,54 @@ const Signup = () => {
     });
   };
 
-  const handleCheckNickName = () => {
-    axios
-      .post('http://10.58.52.62:8000/user/nicknameCheck', {
-        nickname: userData.nickname,
-      })
-      .then(res => {
-        if (res.data.message === 'AVAILABLE_NICKNAME') {
-          alert('사용가능한 닉네임입니다.');
-          setCheckNickName(true);
-        } else if (res.data.message === 'AVAILABLE_NICKNAME') {
-          alert('사용이 불가능한 닉네임입니다.');
-        } else {
-          alert('오류입니다. 관리자에게 문의하세요');
-        }
-      });
-  };
-
-  const goSignUp = () => {
-    const phoneNumberRegex = /^01[016-9]\d{3,4}\d{4}$/;
-
-    if (Math.sign(userData.weight) === -1) {
-      alert('몸무게 값을 확인해주세요.');
-    } else if (Math.sign(userData.height) === -1) {
-      alert('키 값을 확인해주세요.');
-    } else if (!phoneNumberRegex.test(userData.phoneNumber)) {
-      alert('전화번호 값을 확인해주세요.');
-    } else {
-      axios
-        .post(`${process.env.REACT_APP_TEST_API}/user/signup`, userData, {
-          headers: { Authorization: localStorage.getItem('newUserToken') },
-        })
-        .then(res => {
-          if (res.data.message === 'SIGNUP_SUCCESS') {
-            alert('가입이 완료되었습니다.');
-            navigate('/login');
-          } else {
-            alert('오류입니다. 관리자에게 문의하세요.');
-          }
-        });
-    }
-  };
+  const goSignUp = () => {};
 
   const checkAllWrite =
     userData.height &&
-    userData.nickname &&
     userData.phoneNumber &&
     userData.weight &&
-    checkNickName &&
     userData.interestedWorkout &&
     userData.workoutLoad &&
     (userData.userType === '1' || userData.specialized);
-  return (
-    <div className="signup contentsWrap">
-      <div className="container">
-        <p className="title">상세 정보 입력</p>
-        <div className="userSortWrap">
-          <label>
-            <input
-              type="radio"
-              name="userType"
-              value="1"
-              defaultChecked
-              onChange={e => handleInput(e)}
-            />
-            <span>일반인</span>
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="userType"
-              value="2"
-              onChange={e => handleInput(e)}
-            />
-            <span>트레이너</span>
-          </label>
-          <span className="selection"></span>
-        </div>
 
-        <Input
-          lable="닉네임"
-          name="nickname"
-          width="w80"
-          onChange={handleInput}
-          useBtn={true}
-          onClick={handleCheckNickName}
-          type="text"
-          userData={userData}
-          checkNickName={checkNickName}
-        />
+  return (
+    <div className="modiInfo contentsWrap">
+      <div className="container">
+        <p className="title">
+          내 정보 수정
+          {userData.userType === '1' ? (
+            <span>{userData.nickName} 님(일반인)</span>
+          ) : (
+            <span>{userData.nickName} 님(트레이너)</span>
+          )}
+        </p>
+        <div className="imgWrap">
+          <div className="imgPreviewWrap">
+            <label className="imgLabel" htmlFor="profileImg">
+              {imgFile ? (
+                <img src={imgFile} />
+              ) : (
+                <img src="/images/logo_white.png" />
+              )}
+              <span>수정</span>
+            </label>
+            <input
+              className="imgInput"
+              type="file"
+              accept="image/*"
+              id="profileImg"
+              onChange={saveImgFile}
+              ref={imgRef}
+            />
+          </div>
+        </div>
         <Input
           lable="전화번호(-생략)"
           type="tel"
           width="w100"
           name="phoneNumber"
           onChange={handleInput}
-          maxLength={11}
+          maxLength={13}
           userData={userData}
         />
         <div className="genderWrap">
@@ -246,4 +187,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default ModiInfo;
