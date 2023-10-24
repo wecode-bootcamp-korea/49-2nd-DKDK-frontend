@@ -1,6 +1,7 @@
 .trainersWrap {
   display: grid;
   grid-template-columns: 34.5% 34.5% 31%;
+  z-index: 2;
 
   .trainerItem {
     position: relative;

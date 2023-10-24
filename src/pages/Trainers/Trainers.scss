@@ -57,4 +57,19 @@
       }
     }
   }
+
+  .top {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #000;
+    font-size: 18px;
+    color: #ffe86f;
+    font-weight: 700;
+    border: 3px solid #ffe86f;
+    z-index: 300;
+  }
 }

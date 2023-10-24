@@ -18,9 +18,23 @@ const Trainers = () => {
   const [isDetail, setIsDetail] = useState(false);
   const [isTrainer, setIsTrainer] = useState(false);
   const [postId, setPostId] = useState('');
+  const isSubscribed = localStorage.getItem('isSubscribed');
+  const navigate = useNavigate();
 
   const handleIsPost = () => {
-    setIsPost(true);
+    if (isSubscribed === 'true') {
+      setIsPost(true);
+    } else {
+      window.confirm('구독이 필요한 서비스 입니다.');
+      navigate('/trainer');
+    }
+  };
+
+  const goTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {
@@ -150,6 +164,9 @@ const Trainers = () => {
         />
       )}
       <section className="contentsWrap">
+        <button type="button" className="top" onClick={goTop}>
+          TOP
+        </button>
         <div className="sortingBtn">
           {isTrainer && (
             <button type="button" className="postBtn" onClick={handleIsPost}>
