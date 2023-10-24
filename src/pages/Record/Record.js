@@ -2,45 +2,55 @@ import React, { useEffect, useState } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
+import axios from 'axios';
 import './Record.scss';
 
 const Record = () => {
   const [myRecord, setMyRecord] = useState({});
 
-  useEffect(() => {
-    fetch('/data/recordData.json')
-      .then(res => res.json())
-      .then(result => {
+  const getData = () => {
+    axios
+      .get(`${process.env.REACT_APP_TEST_API}/records`, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken'),
+        },
+      })
+      .then(res => {
+        const result = res.data;
+        console.log(result);
         workoutChart(result.numberCompareTime);
         createLineChart(
-          result.numberHeartbeatRecords,
+          JSON.parse(result.numberHeartbeatRecords),
           'red',
           true,
           'bpm',
           'recordHeartRate',
         );
         createLineChart(
-          result.numberWeightRecords,
+          JSON.parse(result.numberWeightRecords),
           '#ffe86f',
           false,
           'kg',
           'recordWeight',
         );
         createLineChart(
-          result.numberMuscleRecords,
+          JSON.parse(result.numberMuscleRecords),
           '#6fe2ff',
           false,
           'kg',
           'recordBoneMuscle',
         );
         createLineChart(
-          result.numberFatRecords,
+          JSON.parse(result.numberFatRecords),
           '#6fff86',
           false,
           'kg',
           'recordBodyFat',
         );
       });
+  };
+  useEffect(() => {
+    getData();
   }, []);
 
   const handleRecord = e => {
@@ -62,6 +72,19 @@ const Record = () => {
     if (Object.keys(myRecord).length < 1) {
       alert('값을 입력해주세요.');
     } else {
+      axios
+        .post(`${process.env.REACT_APP_TEST_API}/records`, myRecord, {
+          headers: {
+            Authorization:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk4MDQ2NjA5fQ.4eQr5lnZQGDY_CuOP43N1yt0-pK8yMEWo7u0EMdok34',
+          },
+        })
+        .then(res => {
+          if (res.data.message === 'UPDATED') {
+            alert('작성이 완료되었습니다.');
+            getData();
+          }
+        });
     }
   };
 
