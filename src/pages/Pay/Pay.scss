@@ -1,0 +1,69 @@
+.pay {
+  .container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    border-radius: 10px;
+    padding-bottom: 100px;
+    gap: 30px;
+
+    .titleWrap {
+      color: #ffe86f;
+      text-align: center;
+      font-size: 3rem;
+      font-weight: 900;
+    }
+
+    .subscriptInfo {
+      color: white;
+      text-align: center;
+    }
+  }
+  .payWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 704px;
+    .package {
+      background: rgba(255, 232, 111, 0.7);
+      width: 424px;
+      height: 656px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .infoWrap {
+        display: grid;
+        gap: 30px;
+        text-align: center;
+        p {
+          opacity: 1;
+        }
+        .title {
+          font-size: 1.5rem;
+          color: #ffe86f;
+        }
+        .payment {
+          font-size: 3rem;
+          font-weight: 900;
+        }
+        button {
+          background-color: #ffea0c;
+        }
+      }
+      &:hover {
+        background: rgba(255, 232, 111, 1);
+        height: 704px;
+
+        .title {
+          font-size: 1.5rem;
+          color: black;
+        }
+        .subInfo {
+          color: black;
+        }
+      }
+    }
+  }
+}
