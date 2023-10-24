@@ -12,8 +12,7 @@ const Record = () => {
     axios
       .get(`${process.env.REACT_APP_TEST_API}/records`, {
         headers: {
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk4MDQ2NjA5fQ.4eQr5lnZQGDY_CuOP43N1yt0-pK8yMEWo7u0EMdok34',
+          Authorization: localStorage.getItem('accessToken'),
         },
       })
       .then(res => {

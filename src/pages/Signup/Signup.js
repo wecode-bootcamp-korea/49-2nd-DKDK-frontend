@@ -61,7 +61,7 @@ const Signup = () => {
 
   const handleCheckNickName = () => {
     axios
-      .post('http://10.58.52.62:8000/user/nicknameCheck', {
+      .post(`${process.env.REACT_APP_TEST_API}/user/nicknameCheck`, {
         nickname: userData.nickname,
       })
       .then(res => {
