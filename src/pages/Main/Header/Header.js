@@ -8,6 +8,7 @@ const Header = () => {
   const [isMouseIn, setIsMouseIn] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState('');
   const [accessToken, setAccessToken] = useState('');
+  const [userType, setUserType] = useState('');
   const mouseInEvent = () => {
     setIsMouseIn(true);
   };
@@ -17,37 +18,46 @@ const Header = () => {
 
   const goCommunity = () => {
     if (accessToken === '') {
-      window.confirm('로그인이 필요한 서비스입니다.');
-      navigate('/login');
+      if (window.confirm('로그인이 필요한 서비스입니다.')) {
+        navigate('/login');
+      }
     } else {
       if (isSubscribed === 'true') {
         navigate('/communitylist');
       } else {
-        window.confirm('구독이 필요한 서비스입니다.');
-        navigate('/pay');
+        if (window.confirm('구독이 필요한 서비스입니다.')) {
+          navigate('/pay');
+        }
       }
     }
   };
 
   const goTrainer = () => {
     if (accessToken === '') {
-      window.confirm('로그인이 필요한 서비스입니다.');
-      navigate('/login');
+      if (window.confirm('로그인이 필요한 서비스입니다.')) {
+        navigate('/login');
+      }
     } else {
-      if (isSubscribed === 'true') {
+      if (userType === '2') {
         navigate('/trainer');
       } else {
-        window.confirm('구독이 필요한 서비스입니다.');
-        navigate('/pay');
+        if (isSubscribed === 'true') {
+          navigate('/trainer');
+        } else {
+          if (window.confirm('구독이 필요한 서비스입니다.')) {
+            navigate('/pay');
+          }
+        }
       }
     }
   };
 
   const goSubScribe = () => {
     if (accessToken === '') {
-      window.confirm('로그인이 필요한 서비스입니다.');
-      navigate('/login');
-    } else {
+      if (window.confirm('로그인이 필요한 서비스입니다.')) {
+        navigate('/login');
+      }
+    } else if (accessToken.length !== 0) {
       navigate('/pay');
     }
   };
@@ -71,19 +81,31 @@ const Header = () => {
         }
       }
     };
+    const handleUserType = e => {
+      if (e.key === 'userType') {
+        if (e.newValue) {
+          setUserType(e.newValue);
+        } else {
+          setUserType('');
+        }
+      }
+    };
 
     window.addEventListener('storage', handleIsSubscribed);
     window.addEventListener('storage', handleAccessToken);
+    window.addEventListener('storage', handleUserType);
 
     return () => {
       window.removeEventListener('storage', handleIsSubscribed);
       window.removeEventListener('storage', handleAccessToken);
+      window.removeEventListener('storage', handleUserType);
     };
   }, []);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
     const isSubscribed = localStorage.getItem('isSubscribed');
+    const userType = localStorage.getItem('userType');
     if (accessToken) {
       setAccessToken(accessToken);
     } else {
@@ -92,6 +114,12 @@ const Header = () => {
 
     if (isSubscribed) {
       setIsSubscribed(isSubscribed);
+    } else {
+      setIsSubscribed('');
+    }
+
+    if (userType) {
+      setIsSubscribed(userType);
     } else {
       setIsSubscribed('');
     }
