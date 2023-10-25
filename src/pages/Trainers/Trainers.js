@@ -12,18 +12,23 @@ const Trainers = () => {
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [sort, setSort] = useState();
-  const [kind, setKind] = useState();
+  const [category, setCategory] = useState();
   const [gender, setGender] = useState();
   const [isPost, setIsPost] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
   const [isTrainer, setIsTrainer] = useState(false);
   const [postId, setPostId] = useState('');
+  const [isCanPost, setIsCanPost] = useState(false);
   const isSubscribed = localStorage.getItem('isSubscribed');
   const navigate = useNavigate();
 
   const handleIsPost = () => {
     if (isSubscribed === 'true') {
-      setIsPost(true);
+      if (isCanPost === true) {
+        setIsPost(true);
+      } else {
+        window.confirm('이미 등록된 게시글이 존재합니다.');
+      }
     } else {
       window.confirm('구독이 필요한 서비스 입니다.');
       navigate('/trainer');
@@ -40,9 +45,9 @@ const Trainers = () => {
   useEffect(() => {
     const isTrainer = () => {
       const trainer = localStorage.getItem('userType');
-      if (trainer == 1) {
+      if (trainer === '1') {
         setIsTrainer(false);
-      } else if (trainer == 2) {
+      } else if (trainer === '2') {
         setIsTrainer(true);
       }
     };
@@ -55,29 +60,44 @@ const Trainers = () => {
       if (sort) {
         nowUrl += `&sort=${sort}`;
       }
-      if (kind) {
-        nowUrl += `&kind=${kind}`;
+      if (category) {
+        nowUrl += `&category=${category}`;
       }
       if (gender) {
         nowUrl += `&gender=${gender}`;
       }
 
       axios
-        .get(`https://dummyjson.com/products?${nowUrl}`, {
-          header: { Authorization: localStorage.getItem('accessToken') },
+        .get(`${process.env.REACT_APP_TEST_API}/training?${nowUrl}`, {
+          headers: {
+            Authorization: localStorage.getItem('accessToken'),
+            isTrainer: isTrainer,
+          },
         })
         .then(function (response) {
+          const dataArray = response.data.data.data;
+          if (response.data.isPostedTrainer === 'false') {
+            setIsCanPost(true);
+          } else {
+            setIsCanPost(false);
+          }
+
           if (offset === 0) {
             setPage(1);
-            setData([...response.data.products]);
+            setData([...dataArray]);
+            console.log(dataArray);
+            console.log('작동');
           } else {
-            setData(prevData => prevData.concat(response.data.products));
+            setData(prevData => prevData.concat(...dataArray));
+            console.log('작동');
           }
         });
     };
 
     axiosData();
-  }, [sort, kind, gender, page]);
+  }, [sort, category, gender, page]);
+
+  console.log(data);
 
   const handleOption = e => {
     const optionName = e.target.value;
@@ -92,13 +112,13 @@ const Trainers = () => {
     } else if (optionName === '가격 순') {
       setSort('price');
     } else if (optionName === '전체') {
-      setKind(null);
+      setCategory(null);
     } else if (optionName === '헬스') {
-      setKind('health');
+      setCategory(1);
     } else if (optionName === '필라테스') {
-      setKind('pilates');
+      setCategory(2);
     } else if (optionName === '요가') {
-      setKind('yoga');
+      setCategory(3);
     }
   };
 
@@ -138,21 +158,6 @@ const Trainers = () => {
     };
   }, [data, page]);
 
-  // const myContent = () => {
-  //   setOffset(0);
-  //   axios
-  //     .get(
-  //       'https://dummyjson.com/products?offset=0&limit=6',
-  // , {
-  //   header: { Authorization: localStorage.getItem('accessToken') },
-  // }
-  //     )
-  //     .then(function (response) {
-  //       setPage(1);
-  //       setData([...response.data.products]);
-  //     });
-  // };
-
   return (
     <>
       {isPost && <TrainerRegis setIsPost={setIsPost} />}
@@ -180,10 +185,10 @@ const Trainers = () => {
           )}
           <form className="checkboxWrap" onChange={isChecked}>
             <label>
-              <input type="radio" name="gender" value="men" /> 남
+              <input type="radio" name="gender" value="남성" /> 남
             </label>
             <label>
-              <input type="radio" name="gender" value="women" /> 여
+              <input type="radio" name="gender" value="여성" /> 여
             </label>
             <input
               type="reset"

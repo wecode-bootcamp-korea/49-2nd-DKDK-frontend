@@ -10,16 +10,14 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
   const { IMP } = window;
   const [detailData, setDetailData] = useState({});
   const {
-    images,
+    id,
+    imgUrl,
     price,
-    brand,
-    category,
-    description,
-    discountPercentage,
-    title,
-    thumbnail,
-    stock,
-    rating,
+    availableArea,
+    availableTime,
+    categoryName,
+    term,
+    content,
   } = detailData;
 
   const handleClose = () => {
@@ -27,9 +25,9 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
   };
   const productData = {
     pg: 'kakaopay',
-    name: title,
+    name: `${categoryName}, ${term}개월`,
     amount: price,
-    // merchant_uid: postId,
+    merchant_uid: postId,
   };
   const buyContent = () => {
     const storeCode = 'imp80367710';
@@ -79,7 +77,7 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
       .then(function (response) {
         setDetailData(response.data);
       });
-  }, []);
+  }, [postId]);
 
   return (
     <div className="trainerDetailWrap">
@@ -94,19 +92,21 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
           <section className="profileWrap">
             <div className="profileInfoWrap">
               <div className="profileImgWrap">
-                {images ? (
+                {imgUrl ? (
                   <img
                     className="profileImg"
-                    src={process.env.PUBLIC_URL + `${thumbnail}`}
+                    src={process.env.PUBLIC_URL + `${imgUrl}`}
+                    alt="트레이너 프로필"
                   />
                 ) : (
                   <img
                     className="profileImg"
                     src={process.env.PUBLIC_URL + '/images/logo_white.png'}
+                    alt="기본 이미지"
                   />
                 )}
               </div>
-              <p className="profileName">{title}</p>
+              <p className="profileName">{id}</p>
             </div>
             <div className="detailInfoWrap">
               <div className="infoNameWrap">
@@ -119,23 +119,23 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
                 </li>
                 <li className="detailInfoItem">
                   <p className="infoDetailName">운동종목</p>
-                  <p className="infoDetail">{brand}</p>
+                  <p className="infoDetail">{categoryName}</p>
                 </li>
                 <li className="detailInfoItem">
                   <p className="infoDetailName">가능지역</p>
-                  <p className="infoDetail">{category}</p>
+                  <p className="infoDetail">{availableArea}</p>
                 </li>
                 <li className="detailInfoItem">
                   <p className="infoDetailName">가능시간</p>
-                  <p className="infoDetail">{discountPercentage}</p>
+                  <p className="infoDetail">{availableTime}</p>
                 </li>
                 <li className="detailInfoItem">
-                  <p className="infoDetailName">회원수</p>
-                  <p className="infoDetail">{stock}</p>
+                  <p className="infoDetailName">운동 기간</p>
+                  <p className="infoDetail">{term}개월</p>
                 </li>
                 <li className="detailInfoItem">
                   <p className="infoDetailName">활동량</p>
-                  <p className="infoDetail">{rating}</p>
+                  <p className="infoDetail">댓글수</p>
                 </li>
               </ul>
             </div>
@@ -151,19 +151,21 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
           </div>
           <section className="prWrap">
             <div className="prImgWrap">
-              {images ? (
+              {imgUrl ? (
                 <img
                   className="profileImg"
-                  src={process.env.PUBLIC_URL + `${thumbnail}`}
+                  src={process.env.PUBLIC_URL + `${imgUrl}`}
+                  alt="자기소개"
                 />
               ) : (
                 <img
                   className="profileImg"
                   src={process.env.PUBLIC_URL + '/images/logo_white.png'}
+                  alt="기본이미지"
                 />
               )}
             </div>
-            <div className="prTextWrap">{description}</div>
+            <div className="prTextWrap">{content}</div>
           </section>
           <div className="bottomBtnWrap">
             <button
