@@ -3,9 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import './SubNav.scss';
 
 const PAGES_NAME_LIST = [
-  { id: 1, path: '/user-post', name: 'COMMUNITY' },
+  { id: 1, path: '/communitylist', name: 'COMMUNITY' },
   { id: 2, path: '/trainer', name: 'TRAINER MATCHING' },
-  { id: 3, path: '/3', name: 'SUBSCRIBE' },
 ];
 
 const EXCEPTIONAL_PATHS = [
@@ -17,7 +16,9 @@ const EXCEPTIONAL_PATHS = [
   '/my-page',
   '/record',
   '/modiInfo',
-  '/postsignup',
+  '/pay',
+  '/communitypost',
+  '/communitydetail',
 ];
 
 const SubNav = () => {
