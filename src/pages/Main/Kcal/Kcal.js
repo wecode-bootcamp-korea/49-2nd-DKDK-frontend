@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import '../../../data/FOOD_KCAL';
-import './Kcal.scss';
 import FOOD_KCAL from '../../../data/FOOD_KCAL';
+import './Kcal.scss';
 
 const Kcal = () => {
   const [checkedList, setCheckedList] = useState([]);
@@ -20,8 +19,11 @@ const Kcal = () => {
   );
 
   const reset = () => {
+    const checkboxes = document.querySelectorAll('input[name=kcal]');
     setCheckedList([]);
-    document.getElementById('kcalCheck').reset();
+    checkboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    });
   };
 
   return (
@@ -29,14 +31,9 @@ const Kcal = () => {
       <div className="kcalContent">
         <div className="topWrap">
           <h4>Kcal: 나의 칼로리</h4>
-          <div>
-            <button type="button" className="kcalBtn" onClick={reset}>
-              초기화
-            </button>
-            <button type="button" className="kcalBtn">
-              계산하기
-            </button>
-          </div>
+          <button type="button" className="kcalBtn" onClick={reset}>
+            초기화
+          </button>
         </div>
         <form id="kcalCheck">
           {FOOD_KCAL.map(food => {

@@ -3,22 +3,58 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import TrainersGroup from './TrainersGroup/TrainersGroup';
 import SelectBox from './SelectBox/SelectBox';
-import './Trainers.scss';
 import TrainerRegis from '../TrainerRegis/TrainerRegis';
+import TrainerDetail from '../TrainerDetail/TrainerDetail';
+import './Trainers.scss';
 
 const Trainers = () => {
-  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [sort, setSort] = useState();
-  const [kind, setKind] = useState();
-  const [gender, setGender] = useState();
+  const [category, setCategory] = useState();
+  const [gender, setGender] = useState(0);
   const [isPost, setIsPost] = useState(false);
+  const [isDetail, setIsDetail] = useState(false);
+  const [isTrainer, setIsTrainer] = useState(false);
+  const [myPost, setMyPost] = useState(false);
+  const [postId, setPostId] = useState('');
+  const [isCanPost, setIsCanPost] = useState(false);
+  const isSubscribed = localStorage.getItem('isSubscribed');
+  const navigate = useNavigate();
 
   const handleIsPost = () => {
-    setIsPost(true);
+    if (isSubscribed === 'true') {
+      if (isCanPost === true) {
+        setIsPost(true);
+      } else {
+        window.confirm('이미 등록된 게시글이 존재합니다.');
+      }
+    } else {
+      if (window.confirm('구독이 필요한 서비스 입니다.')) {
+        navigate('/pay');
+      }
+    }
   };
+
+  const goTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    const isTrainer = () => {
+      const trainer = localStorage.getItem('userType');
+      if (trainer === '1') {
+        setIsTrainer(false);
+      } else if (trainer === '2') {
+        setIsTrainer(true);
+      }
+    };
+    isTrainer();
+  }, []);
 
   useEffect(() => {
     const axiosData = () => {
@@ -26,28 +62,43 @@ const Trainers = () => {
       if (sort) {
         nowUrl += `&sort=${sort}`;
       }
-      if (kind) {
-        nowUrl += `&kind=${kind}`;
+      if (category) {
+        nowUrl += `&category=${category}`;
       }
-
       if (gender) {
         nowUrl += `&gender=${gender}`;
       }
+      if (myPost) {
+        nowUrl += `&isTrainer=${myPost}`;
+      }
 
-      axios(`https://dummyjson.com/products?${nowUrl}`).then(
-        function (response) {
+      axios
+        .get(`${process.env.REACT_APP_TEST_API}/training?${nowUrl}`, {
+          headers: {
+            Authorization: localStorage.getItem('accessToken'),
+            isTrainer: isTrainer,
+          },
+        })
+        .then(function (response) {
+          const dataArray = response.data.data.data;
+          console.log('data :', response.data);
+          if (response.data.data.isPostedTrainer) {
+            setIsCanPost(true);
+          } else {
+            setIsCanPost(false);
+          }
+
           if (offset === 0) {
             setPage(1);
-            setData([...response.data.products]);
+            setData([...dataArray]);
           } else {
-            setData(prevData => prevData.concat(response.data.products));
+            setData(prevData => prevData.concat(...dataArray));
           }
-        },
-      );
+        });
     };
 
     axiosData();
-  }, [sort, kind, gender, page]);
+  }, [sort, category, gender, page, myPost]);
 
   const handleOption = e => {
     const optionName = e.target.value;
@@ -62,13 +113,13 @@ const Trainers = () => {
     } else if (optionName === '가격 순') {
       setSort('price');
     } else if (optionName === '전체') {
-      setKind(null);
+      setCategory(null);
     } else if (optionName === '헬스') {
-      setKind('health');
+      setCategory(1);
     } else if (optionName === '필라테스') {
-      setKind('pilates');
+      setCategory(2);
     } else if (optionName === '요가') {
-      setKind('yoga');
+      setCategory(3);
     }
   };
 
@@ -88,6 +139,10 @@ const Trainers = () => {
   const genderClear = () => {
     setOffset(0);
     setGender(null);
+  };
+
+  const isMine = () => {
+    setMyPost(1);
   };
 
   useEffect(() => {
@@ -110,21 +165,35 @@ const Trainers = () => {
 
   return (
     <>
-      {isPost && <TrainerRegis setIsPost={setIsPost} />}
+      {isPost && <TrainerRegis setIsPost={setIsPost} data={data} />}
+      {isDetail && (
+        <TrainerDetail
+          setIsDetail={setIsDetail}
+          postId={postId}
+          isTrainer={isTrainer}
+        />
+      )}
       <section className="contentsWrap">
+        <button type="button" className="top" onClick={goTop}>
+          TOP
+        </button>
         <div className="sortingBtn">
-          <button type="button" className="postBtn" onClick={handleIsPost}>
-            등록하기
-          </button>
-          <button type="button" className="myBtn">
-            내 글 보기
-          </button>
+          {isTrainer && (
+            <button type="button" className="postBtn" onClick={handleIsPost}>
+              등록하기
+            </button>
+          )}
+          {isTrainer && (
+            <button type="button" className="myBtn" onClick={isMine}>
+              내 글 보기
+            </button>
+          )}
           <form className="checkboxWrap" onChange={isChecked}>
             <label>
-              <input type="radio" name="gender" value="men" /> 남
+              <input type="radio" name="gender" value="1" /> 남
             </label>
             <label>
-              <input type="radio" name="gender" value="women" /> 여
+              <input type="radio" name="gender" value="2" /> 여
             </label>
             <input
               type="reset"
@@ -136,7 +205,11 @@ const Trainers = () => {
           <SelectBox type="옵션" handleOption={handleOption} />
           <SelectBox handleOption={handleOption} />
         </div>
-        <TrainersGroup trainerListData={data} />
+        <TrainersGroup
+          trainerListData={data}
+          setIsDetail={setIsDetail}
+          setPostId={setPostId}
+        />
       </section>
     </>
   );

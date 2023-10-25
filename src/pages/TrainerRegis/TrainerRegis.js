@@ -5,11 +5,10 @@ import './TrainerRegis.scss';
 const TrainerRegis = ({ setIsPost }) => {
   const [form, setForm] = useState({
     place: '',
-    price: '',
+    price: 0,
     time: '',
-    period: '',
-    text: '',
-    img: '',
+    period: 0,
+    content: '',
   });
   const [imgFile, setImgFile] = useState('');
   const imgRef = useRef();
@@ -33,20 +32,23 @@ const TrainerRegis = ({ setIsPost }) => {
 
   const allInputCheck =
     form.place !== '' &&
-    form.price !== '' &&
+    form.price !== 0 &&
     form.time !== '' &&
     form.period !== '' &&
-    form.text !== '' &&
-    form.img !== '';
+    form.content !== '';
 
   const postContent = () => {
     axios
-      .post('url', form, {
-        header: { Authorization: localStorage.getItem('accessToken') },
+      .post(`${process.env.REACT_APP_TEST_API}/training`, form, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken'),
+        },
       })
       .then(res => {
-        if (res.data.message === '메세지') {
+        console.log(res);
+        if (res.data.message === 'POST_SUCCESS') {
           alert('등록이 완료되었습니다.');
+          window.location.reload();
           setIsPost(false);
         } else {
           alert('오류입니다. 관리자에게 문의하세요.');
@@ -64,10 +66,19 @@ const TrainerRegis = ({ setIsPost }) => {
           <section className="profileWrap">
             <div className="profileInfoWrap">
               <div className="profileImgWrap">
+                {/* {imgUrl ? (
+                  <img
+                    className="profileImg"
+                    src={process.env.PUBLIC_URL + `${imgUrl}`}
+                    alt="트레이너 프로필"
+                  />
+                ) : ( */}
                 <img
                   className="profileImg"
                   src={process.env.PUBLIC_URL + '/images/logo_white.png'}
+                  alt="기본 이미지"
                 />
+                {/* )} */}
               </div>
               <p className="profileName">득근득근</p>
             </div>
@@ -156,7 +167,7 @@ const TrainerRegis = ({ setIsPost }) => {
                 <textarea
                   className="textInput"
                   placeholder="글을 입력해주세요."
-                  onChange={e => handleForm('text', e.target.value)}
+                  onChange={e => handleForm('content', e.target.value)}
                 />
               </div>
             </div>
