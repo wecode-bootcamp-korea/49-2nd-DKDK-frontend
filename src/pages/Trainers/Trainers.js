@@ -13,10 +13,11 @@ const Trainers = () => {
   const [offset, setOffset] = useState(0);
   const [sort, setSort] = useState();
   const [category, setCategory] = useState();
-  const [gender, setGender] = useState();
+  const [gender, setGender] = useState(0);
   const [isPost, setIsPost] = useState(false);
   const [isDetail, setIsDetail] = useState(false);
   const [isTrainer, setIsTrainer] = useState(false);
+  const [myPost, setMyPost] = useState(false);
   const [postId, setPostId] = useState('');
   const [isCanPost, setIsCanPost] = useState(false);
   const isSubscribed = localStorage.getItem('isSubscribed');
@@ -30,8 +31,9 @@ const Trainers = () => {
         window.confirm('이미 등록된 게시글이 존재합니다.');
       }
     } else {
-      window.confirm('구독이 필요한 서비스 입니다.');
-      navigate('/trainer');
+      if (window.confirm('구독이 필요한 서비스 입니다.')) {
+        navigate('/pay');
+      }
     }
   };
 
@@ -66,6 +68,9 @@ const Trainers = () => {
       if (gender) {
         nowUrl += `&gender=${gender}`;
       }
+      if (myPost) {
+        nowUrl += `&isTrainer=${myPost}`;
+      }
 
       axios
         .get(`${process.env.REACT_APP_TEST_API}/training?${nowUrl}`, {
@@ -76,7 +81,8 @@ const Trainers = () => {
         })
         .then(function (response) {
           const dataArray = response.data.data.data;
-          if (response.data.isPostedTrainer === 'false') {
+          console.log('data :', response.data);
+          if (response.data.data.isPostedTrainer) {
             setIsCanPost(true);
           } else {
             setIsCanPost(false);
@@ -85,19 +91,14 @@ const Trainers = () => {
           if (offset === 0) {
             setPage(1);
             setData([...dataArray]);
-            console.log(dataArray);
-            console.log('작동');
           } else {
             setData(prevData => prevData.concat(...dataArray));
-            console.log('작동');
           }
         });
     };
 
     axiosData();
-  }, [sort, category, gender, page]);
-
-  console.log(data);
+  }, [sort, category, gender, page, myPost]);
 
   const handleOption = e => {
     const optionName = e.target.value;
@@ -140,6 +141,10 @@ const Trainers = () => {
     setGender(null);
   };
 
+  const isMine = () => {
+    setMyPost(1);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const { scrollTop, clientHeight, scrollHeight } =
@@ -160,7 +165,7 @@ const Trainers = () => {
 
   return (
     <>
-      {isPost && <TrainerRegis setIsPost={setIsPost} />}
+      {isPost && <TrainerRegis setIsPost={setIsPost} data={data} />}
       {isDetail && (
         <TrainerDetail
           setIsDetail={setIsDetail}
@@ -179,16 +184,16 @@ const Trainers = () => {
             </button>
           )}
           {isTrainer && (
-            <button type="button" className="myBtn">
+            <button type="button" className="myBtn" onClick={isMine}>
               내 글 보기
             </button>
           )}
           <form className="checkboxWrap" onChange={isChecked}>
             <label>
-              <input type="radio" name="gender" value="남성" /> 남
+              <input type="radio" name="gender" value="1" /> 남
             </label>
             <label>
-              <input type="radio" name="gender" value="여성" /> 여
+              <input type="radio" name="gender" value="2" /> 여
             </label>
             <input
               type="reset"

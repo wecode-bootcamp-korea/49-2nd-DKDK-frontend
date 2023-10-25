@@ -11,7 +11,8 @@ const TrainersGroup = ({ trainerListData, setIsDetail, setPostId }) => {
   return (
     <ul className="trainersWrap">
       {trainerListData.map((trainer, index) => {
-        const { id, availableArea, categoryName, imgUrl, price } = trainer;
+        const { id, availableArea, categoryName, imgUrl, price, name } =
+          trainer;
         return (
           <li
             className="trainerItem"
@@ -31,7 +32,7 @@ const TrainersGroup = ({ trainerListData, setIsDetail, setPostId }) => {
                 />
               )}
             </div>
-            <div className="trainerName">{id}</div>
+            <div className="trainerName">{name}</div>
             <div className="trainerInfo">
               <p className="infoHalf">
                 <span className="bold">전공</span>: {categoryName}

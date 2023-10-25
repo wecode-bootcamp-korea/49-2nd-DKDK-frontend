@@ -9,8 +9,9 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
   document.body.appendChild(script);
   const { IMP } = window;
   const [detailData, setDetailData] = useState({});
+  const [gender, setGender] = useState('');
+  const [isMine, setIsMine] = useState(false);
   const {
-    id,
     imgUrl,
     price,
     availableArea,
@@ -18,6 +19,7 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
     categoryName,
     term,
     content,
+    name,
   } = detailData;
 
   const handleClose = () => {
@@ -69,23 +71,63 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
     }
   };
 
+  const deletePost = () => {
+    const token = localStorage.getItem('accessToken');
+    axios
+      .post(
+        `${process.env.REACT_APP_TEST_API}/training/delete`,
+        { productId: postId },
+        {
+          headers: {
+            Authorization: token,
+          },
+        },
+      )
+      .then(res => {
+        if (res.data.message === 'DELETE_SUCCESS') {
+          alert('삭제가 완료되었습니다.');
+          window.location.reload();
+        } else {
+          alert('삭제가 실패하였습니다.');
+        }
+      });
+  };
+
   useEffect(() => {
     axios
-      .get(`https://dummyjson.com/products/${postId}`, {
-        header: { Authorization: localStorage.getItem('accessToken') },
-      })
+      .get(
+        `${process.env.REACT_APP_TEST_API}/training/detail?productId=${postId}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem('accessToken'),
+          },
+        },
+      )
       .then(function (response) {
-        setDetailData(response.data);
+        const dataArray = response.data.data.data;
+        setDetailData(dataArray);
+        if (dataArray.gender === '1') {
+          setGender('남성');
+        } else {
+          setGender('여성');
+        }
+
+        if (response.data.data.trainerId === dataArray.trainerId) {
+          setIsMine(true);
+        }
+        console.log(response);
       });
-  }, [postId]);
+  }, []);
 
   return (
     <div className="trainerDetailWrap">
       <div className="trainerDetail">
         <div className="contentsWrap">
-          <button type="button" className="deleteBtn">
-            삭제하기
-          </button>
+          {isMine && (
+            <button type="button" className="deleteBtn" onClick={deletePost}>
+              삭제하기
+            </button>
+          )}
           <button type="button" className="closeBtn" onClick={handleClose}>
             닫기
           </button>
@@ -106,7 +148,7 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
                   />
                 )}
               </div>
-              <p className="profileName">{id}</p>
+              <p className="profileName">{name}</p>
             </div>
             <div className="detailInfoWrap">
               <div className="infoNameWrap">
@@ -134,8 +176,8 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
                   <p className="infoDetail">{term}개월</p>
                 </li>
                 <li className="detailInfoItem">
-                  <p className="infoDetailName">활동량</p>
-                  <p className="infoDetail">댓글수</p>
+                  <p className="infoDetailName">성별</p>
+                  <p className="infoDetail">{gender}</p>
                 </li>
               </ul>
             </div>
