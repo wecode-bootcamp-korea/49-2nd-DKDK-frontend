@@ -26,7 +26,7 @@ const MyPage = () => {
   if (!myData) {
     return null;
   }
-
+  console.log(myData);
   return (
     <div className="myPage contentsWrap">
       <div className="titleWrap">
@@ -55,7 +55,7 @@ const MyPage = () => {
                   <InfoBox id="닉네임" value={myData.userInfo[0].nickname} />
                   <InfoBox
                     id="성별"
-                    value={myData.userInfo[0].gender === '1' ? '남성' : '여성'}
+                    value={myData.userInfo[0].gender == '1' ? '남성' : '여성'}
                   />
                   <InfoBox
                     id="휴대폰번호"
@@ -109,52 +109,53 @@ const MyPage = () => {
           </div>
         )}
 
-        {myData.ptOrderInfo.map(item => (
-          <div className="myInfo">
-            <div className="subTitle">
-              <h2>담당 트레이너</h2>
-            </div>
-            <div className="myForm">
-              <div className="myLeftForm">
-                <img
-                  src={
-                    item.profileImg
-                      ? item.profileImg
-                      : '/images/defult_profile.png'
-                  }
-                  alt="트레이너 프로필"
-                />
+        {myData.ptOrderInfo != 'NO_PT_ORDERS' &&
+          myData.ptOrderInfo.map(item => (
+            <div className="myInfo">
+              <div className="subTitle">
+                <h2>담당 트레이너</h2>
               </div>
-              <div className="myRightForm">
-                <div className="bordBox">
-                  <div className="boxLeft">
-                    <InfoBox
-                      id="이름 / 성별"
-                      value={`${item.trainerName} / ${item.gender}`}
-                    />
-                    <InfoBox id="지역" value={item.availableArea} />
-                    <InfoBox id="휴대폰번호" value={item.phoneNumber} />
-                  </div>
-                  <div className="boxRight">
-                    <InfoBox
-                      id="키 / 몸무게"
-                      value={`${item.height}cm / ${item.weight}kg`}
-                    />
-                    <InfoBox id="종료날짜" value={item.end_at} />
-                    <InfoBox id="운동분야" value={item.category} />
+              <div className="myForm">
+                <div className="myLeftForm">
+                  <img
+                    src={
+                      item.profileImg
+                        ? item.profileImg
+                        : '/images/defult_profile.png'
+                    }
+                    alt="트레이너 프로필"
+                  />
+                </div>
+                <div className="myRightForm">
+                  <div className="bordBox">
+                    <div className="boxLeft">
+                      <InfoBox
+                        id="이름 / 성별"
+                        value={`${item.trainerName} / ${item.gender}`}
+                      />
+                      <InfoBox id="지역" value={item.availableArea} />
+                      <InfoBox id="휴대폰번호" value={item.phoneNumber} />
+                    </div>
+                    <div className="boxRight">
+                      <InfoBox
+                        id="키 / 몸무게"
+                        value={`${item.height}cm / ${item.weight}kg`}
+                      />
+                      <InfoBox id="종료날짜" value={item.end_at} />
+                      <InfoBox id="운동분야" value={item.category} />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
         <div className="myInfo">
           <div className="subTitle">
             <h2>내 식단 추천</h2>
           </div>
           <div className="myForm">
             {myData.foodRcmd &&
-              myData.foodRcmd[0].mealPlan.map(item => (
+              myData.foodRcmd.mealPlan.map(item => (
                 <div className="recommandForm" key={item.name}>
                   <img src={item.imgUrl} alt={item.name} />
                   <p>{item.name}</p>

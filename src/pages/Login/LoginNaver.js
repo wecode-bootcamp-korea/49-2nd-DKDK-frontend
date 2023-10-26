@@ -21,7 +21,7 @@ const LoginNaver = () => {
             localStorage.setItem('accessToken', res.data.token);
             localStorage.setItem('userType', res.data.userType);
             localStorage.setItem('isSubscribed', res.data.isSubscribed);
-            navigate('/main');
+            navigate('/');
           }
         });
   }, []);
