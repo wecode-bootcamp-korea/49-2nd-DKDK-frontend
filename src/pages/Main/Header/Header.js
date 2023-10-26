@@ -37,19 +37,8 @@ const Header = () => {
       if (window.confirm('로그인이 필요한 서비스입니다.')) {
         navigate('/login');
       }
-    } else {
-      if (userType === '2') {
-        navigate('/trainer');
-      } else {
-        if (isSubscribed === 'true') {
-          navigate('/trainer');
-        } else {
-          if (window.confirm('구독이 필요한 서비스입니다.')) {
-            navigate('/pay');
-          }
-        }
-      }
     }
+    navigate('/trainer');
   };
 
   const goSubScribe = () => {
