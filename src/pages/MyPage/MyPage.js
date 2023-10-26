@@ -6,7 +6,6 @@ import './MyPage.scss';
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const userType = localStorage.getItem('userType');
 
   const goModiInfo = () => {
     navigate('/modiInfo');
@@ -16,7 +15,9 @@ const MyPage = () => {
     axios
       .get(`${process.env.REACT_APP_TEST_API}/userHealthInfo`, {
         headers: {
-          Authorization: localStorage.getItem('accessToken'),
+          //Authorization: localStorage.getItem('accessToken'),
+          Authorization:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImlhdCI6MTY5ODEyMDQ3N30.dD659ouwe5jwD7jINYURXHoWpj7ZWMJRpaAzXTQx75Q',
         },
       })
       .then(res => {

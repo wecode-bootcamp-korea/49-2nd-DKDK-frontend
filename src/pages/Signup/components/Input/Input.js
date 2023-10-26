@@ -15,6 +15,8 @@ const Input = ({
   secondLable,
   secondName,
   checkNickName,
+  defaultValue,
+  secondDefaultValue,
 }) => {
   return (
     <div className="InfoWrap">
@@ -28,6 +30,7 @@ const Input = ({
           maxLength={maxLength}
           name={name}
           disabled={checkNickName && true}
+          defaultValue={defaultValue}
         />
         {useSecond && (
           <input
@@ -38,6 +41,7 @@ const Input = ({
             placeholder={secondLable}
             maxLength={maxLength}
             name={secondName}
+            defaultValue={secondDefaultValue}
           />
         )}
         {useBtn && (
