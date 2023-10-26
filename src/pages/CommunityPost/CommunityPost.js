@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CommunityPost.scss';
-import { useNavigate } from 'react-router-dom/dist';
+import axios from 'axios';
 
 const CommunityPost = () => {
   const [imgFile, setImgFile] = useState('');
@@ -14,17 +15,42 @@ const CommunityPost = () => {
     };
   };
 
+  const [content, setContent] = useState('');
+
+  const handleContent = e => {
+    const text = e.target.value;
+    setContent(text);
+  };
+
+  const post = () => {
+    if (content.length === 0) {
+      alert('글을 입력해주세요.');
+    } else {
+      axios
+        .post(
+          'http://10.58.52.79:8000/community/post',
+          { content: content },
+          { headers: { Authorization: localStorage.getItem('accessToken') } },
+        )
+        .then(res => {
+          if (res.data.message === 'CREATE_POST') {
+            alert('등록이 완료되었습니다.');
+            navigate('/communtyList');
+          } else {
+            alert('오류입니다.');
+          }
+        });
+    }
+  };
   const navigate = useNavigate();
 
   const goTolist = () => {
     navigate('/communitylist');
   };
+
   return (
     <div className="contentsWrap">
       <div className="containerWrap">
-        <div className="btnWrap">
-          <button className="backbtnWrap">뒤로</button>
-        </div>
         <div className="imgWrap">
           <label className="imgLabel" htmlFor="profileImg">
             {imgFile ? (
@@ -44,14 +70,13 @@ const CommunityPost = () => {
           />
         </div>
         <div className="contentWrapper">
-          <p>글을 입력해주세요</p>
-          <textarea placeholder="글을 입력해주세요" />
+          <textarea placeholder="글을 입력해주세요" onChange={handleContent} />
         </div>
-        <div className="registBtn">
-          <button className="btn" onClick={goTolist}>
-            등록
-          </button>
-        </div>
+      </div>
+      <div className="registBtn">
+        <button className="btn" onClick={goTolist}>
+          등록
+        </button>
       </div>
     </div>
   );
