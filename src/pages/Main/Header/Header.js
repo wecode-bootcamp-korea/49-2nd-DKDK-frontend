@@ -119,9 +119,9 @@ const Header = () => {
     }
 
     if (userType) {
-      setIsSubscribed(userType);
+      setUserType(userType);
     } else {
-      setIsSubscribed('');
+      setUserType('');
     }
   }, []);
 
