@@ -14,6 +14,7 @@ import Signup from './pages/Signup/Signup';
 import CommunityPost from './pages/CommunityPost/CommunityPost';
 import Record from './pages/Record/Record';
 import CommunityDetail from './pages/CommunityDetail/CommunityDetail';
+import Pay from './pages/Pay/Pay';
 
 const Router = () => {
   return (
@@ -33,6 +34,7 @@ const Router = () => {
         <Route path="/communitypost" element={<CommunityPost />} />
         <Route path="/record" element={<Record />} />
         <Route path="/communitydetail" element={<CommunityDetail />} />
+        <Route path="/pay" element={<Pay />} />
       </Routes>
     </BrowserRouter>
   );

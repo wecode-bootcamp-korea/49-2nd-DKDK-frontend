@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Banner.scss';
 
 const Banner = () => {
@@ -14,9 +15,9 @@ const Banner = () => {
             <br />
             adipiscing elit, sed diam nonummy nibh euismod.
           </p>
-          <button type="button" className="goSubscribe">
+          <Link to="/pay" className="goSubscribe">
             CONTACT US
-          </button>
+          </Link>
         </div>
       </div>
     </section>

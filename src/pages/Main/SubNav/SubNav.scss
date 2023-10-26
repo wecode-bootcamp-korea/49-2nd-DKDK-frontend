@@ -4,7 +4,7 @@
   background-image: url('../../../../public/images/subnav.jpg');
   background-repeat: no-repeat;
   background-size: 100%;
-  background-position: 0 60%;
+  background-position: 0 28%;
 
   .categoryWrap {
     display: flex;
@@ -28,6 +28,11 @@
       font-style: italic;
       font-size: 15px;
       font-weight: 600;
+      color: #fff;
+
+      a {
+        color: #fff;
+      }
     }
   }
 }

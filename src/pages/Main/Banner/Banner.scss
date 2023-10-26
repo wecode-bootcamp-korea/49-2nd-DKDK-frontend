@@ -28,10 +28,13 @@
       }
 
       .goSubscribe {
+        display: inline-block;
         width: 130px;
         height: 42px;
         margin-top: 18px;
         border-radius: 0.6rem;
+        line-height: 39px;
+        text-align: center;
         font-size: 14px;
         font-weight: bold;
         color: #fff;

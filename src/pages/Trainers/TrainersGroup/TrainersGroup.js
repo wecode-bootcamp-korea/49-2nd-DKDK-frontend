@@ -1,16 +1,30 @@
 import React from 'react';
 import './TrainersGroup.scss';
 
-const TrainersGroup = ({ trainerListData }) => {
+const TrainersGroup = ({ trainerListData, setIsDetail, setPostId }) => {
+  const handlePostId = e => {
+    const id = e.currentTarget.value;
+    setPostId(id);
+    setIsDetail(true);
+  };
+
   return (
     <ul className="trainersWrap">
       {trainerListData.map((trainer, index) => {
-        const { thumbnail, title, category, price, brand } = trainer;
+        const { id, availableArea, categoryName, imgUrl, price, name } =
+          trainer;
         return (
-          <li className="trainerItem" key={index}>
+          <li
+            className="trainerItem"
+            key={index}
+            value={id}
+            onClick={e => {
+              handlePostId(e);
+            }}
+          >
             <div className="trainerImg">
-              {thumbnail ? (
-                <img src={trainer.thumbnail} alt="프로필 이미지" />
+              {imgUrl ? (
+                <img src={imgUrl} alt="프로필 이미지" />
               ) : (
                 <img
                   src={process.env.PUBLIC_URL + '/images/logo_white.png'}
@@ -18,10 +32,10 @@ const TrainersGroup = ({ trainerListData }) => {
                 />
               )}
             </div>
-            <div className="trainerName">{title}</div>
+            <div className="trainerName">{name}</div>
             <div className="trainerInfo">
               <p className="infoHalf">
-                <span className="bold">전공</span>: {category}
+                <span className="bold">전공</span>: {categoryName}
               </p>
               <div className="detailInfo">
                 <p className="leftHalfWrap">
@@ -29,7 +43,7 @@ const TrainersGroup = ({ trainerListData }) => {
                   {price.toLocaleString()}
                 </p>
                 <p className="halfWrap">
-                  <span className="bold">위치</span>: {brand}
+                  <span className="bold">위치</span>: {availableArea}
                 </p>
               </div>
             </div>

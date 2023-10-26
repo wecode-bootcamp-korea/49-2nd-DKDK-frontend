@@ -21,6 +21,12 @@ const Main = () => {
   };
   const moveToBmi = moveContents(bmiRef);
   const moveToKcal = moveContents(kcalRef);
+  const goTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div className="main">
@@ -33,6 +39,9 @@ const Main = () => {
       <div ref={kcalRef}>
         <Kcal />
       </div>
+      <button type="button" className="top" onClick={goTop}>
+        TOP
+      </button>
     </div>
   );
 };
