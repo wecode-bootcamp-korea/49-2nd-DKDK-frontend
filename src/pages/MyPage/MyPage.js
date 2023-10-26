@@ -26,7 +26,7 @@ const MyPage = () => {
   if (!myData) {
     return null;
   }
-  console.log(myData.foodRcmd[0]);
+  console.log(myData);
   return (
     <div className="myPage contentsWrap">
       <div className="titleWrap">
@@ -55,7 +55,7 @@ const MyPage = () => {
                   <InfoBox id="닉네임" value={myData.userInfo[0].nickname} />
                   <InfoBox
                     id="성별"
-                    value={myData.userInfo[0].gender === '1' ? '남성' : '여성'}
+                    value={myData.userInfo[0].gender == '1' ? '남성' : '여성'}
                   />
                   <InfoBox
                     id="휴대폰번호"
@@ -155,7 +155,7 @@ const MyPage = () => {
           </div>
           <div className="myForm">
             {myData.foodRcmd &&
-              myData.foodRcmd[0].mealPlan.map(item => (
+              myData.foodRcmd.mealPlan.map(item => (
                 <div className="recommandForm" key={item.name}>
                   <img src={item.imgUrl} alt={item.name} />
                   <p>{item.name}</p>

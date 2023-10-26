@@ -92,7 +92,7 @@ const ModiInfo = () => {
         }
       });
   };
-
+  console.log(userData);
   return (
     <div className="modiInfo contentsWrap">
       <div className="container">
@@ -136,8 +136,8 @@ const ModiInfo = () => {
             <input
               type="radio"
               name="gender"
-              value="남성"
-              checked={userData.gender === '남성'}
+              value={1}
+              checked={userData.gender == '1'}
               onChange={e => handleInput(e)}
             />
             <span>남성</span>
@@ -146,8 +146,8 @@ const ModiInfo = () => {
             <input
               type="radio"
               name="gender"
-              value="여성"
-              checked={userData.gender === '여성'}
+              value={2}
+              checked={userData.gender == '2'}
               onChange={e => handleInput(e)}
             />
             <span>여성</span>
