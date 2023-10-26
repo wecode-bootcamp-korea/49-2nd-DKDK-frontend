@@ -59,6 +59,7 @@ const Trainers = () => {
   useEffect(() => {
     const axiosData = () => {
       let nowUrl = `offset=${offset}&limit=6`;
+
       if (sort) {
         nowUrl += `&sort=${sort}`;
       }

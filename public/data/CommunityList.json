@@ -1,0 +1,18 @@
+{
+  "message": "GET_POST",
+  "data": {
+    "user_id": 2,
+    "nickname": "동언",
+    "img_url": "https://media.istockphoto.com/id/615883260/ko/%EC%82%AC%EC%A7%84/%EC%96%B4%EB%A0%A4%EC%9A%B4-%EA%B2%83%EC%9D%80-%EB%B6%88%EA%B0%80%EB%8A%A5%ED%95%9C-%EA%B2%83%EC%9D%84-%EC%9D%98%EB%AF%B8%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94%EB%8B%A4.jpg?s=2048x2048&w=is&k=20&c=X3OLpsj2C61M30mWLIe9e8-spRGa0aPYypLHwAuz8eI=",
+    "post_id": 14,
+    "title": null,
+    "post_img": null,
+    "comment_content": "랄랄루",
+    "commentCount": "11",
+    "likeCount": "2",
+    "isLiked": "true",
+    "isMyPost": "true",
+    "post_content": "에티엉테이어",
+    "post_create_at": "2023-10-24"
+  }
+}

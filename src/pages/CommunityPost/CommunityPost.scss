@@ -7,110 +7,53 @@
     transform: translate(250px, 0px);
     background-color: #333;
 
-    .btnWrap {
-      position: relative;
-      padding: 30px 0px 0 30px;
-      margin-bottom: 0;
-      color: #fff;
-
-      .backbtnWrap {
-        top: 30px;
-        right: 60px;
-        width: 130px;
-        height: 42px;
-        border-radius: 0.6rem;
-        font-size: 16px;
-        font-weight: bold;
-        color: #000;
-        background-color: #ffe86f;
-        border: 1px solid #fff;
-
-        &:hover {
-          color: #fff;
-          background-color: #000;
-        }
-      }
-    }
     .imgWrap {
       display: flex;
+      align-items: center;
       justify-content: center;
+      transform: translate(0px, 80px);
 
-      .click {
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        font-size: 30px;
-        color: white;
-        display: none;
+      img {
+        display: block;
+        width: 500px;
+        height: 300px;
       }
-      .imgPreviewWrap {
-        img {
-          width: 200px;
-        }
+      .imgLabel {
+        cursor: pointer;
 
-        .imgLabel {
-          cursor: pointer;
-
-          &:hover {
-            img {
-              background-color: #bcb4b4;
-              height: 200px;
-            }
-          }
-        }
-
-        .imgInput {
+        span {
+          font-size: 1rem;
+          padding-left: 5px;
+          transform: translate(-50%, -50%);
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          color: white;
           display: none;
         }
       }
+
+      .imgInput {
+        display: none;
+      }
     }
 
-    .imgInput {
-      display: none;
-    }
     .contentWrapper {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 20px;
-      flex: 1 0 0;
-      align-self: stretch;
-      p {
-        margin-left: 40px;
-        font-size: 20px;
-        color: white;
-      }
+      justify-content: center;
+      margin-top: 50px;
+      transform: translate(0px, 100px);
+
       textarea {
         width: 600px;
-        height: 400px;
+        height: 300px;
         border-radius: 6px;
         border: 1px solid var(--Grey88, #e0e0e0);
-        margin-left: 40px;
         padding: 10px;
         resize: none;
       }
     }
     .registBtn {
-      position: relative;
-      padding: 0px 0px 20px 510px;
-      margin-bottom: 0;
-      color: #fff;
-
-      .btn {
-        width: 130px;
-        height: 42px;
-        border-radius: 0.6rem;
-        font-size: 16px;
-        font-weight: bold;
-        color: #000;
-        background-color: #ffe86f;
-        border: 1px solid #fff;
-
-        &:hover {
-          color: #fff;
-          background-color: #000;
-        }
-      }
     }
   }
 }
