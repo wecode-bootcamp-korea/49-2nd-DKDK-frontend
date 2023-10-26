@@ -19,9 +19,7 @@ const ModiInfo = () => {
     axios
       .get(`${process.env.REACT_APP_TEST_API}/userHealthInfo/get`, {
         headers: {
-          //Authorization: localStorage.getItem('accessToken'),
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImlhdCI6MTY5ODEyMDQ3N30.dD659ouwe5jwD7jINYURXHoWpj7ZWMJRpaAzXTQx75Q',
+          Authorization: localStorage.getItem('accessToken'),
         },
       })
       .then(res => {
@@ -82,9 +80,7 @@ const ModiInfo = () => {
     axios
       .post(`${process.env.REACT_APP_TEST_API}/userHealthInfo`, formData, {
         headers: {
-          //Authorization: localStorage.getItem('accessToken'),
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImlhdCI6MTY5ODEyMDQ3N30.dD659ouwe5jwD7jINYURXHoWpj7ZWMJRpaAzXTQx75Q',
+          Authorization: localStorage.getItem('accessToken'),
         },
       })
       .then(res => {

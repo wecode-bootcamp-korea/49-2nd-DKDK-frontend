@@ -15,9 +15,7 @@ const MyPage = () => {
     axios
       .get(`${process.env.REACT_APP_TEST_API}/userHealthInfo`, {
         headers: {
-          //Authorization: localStorage.getItem('accessToken'),
-          Authorization:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImlhdCI6MTY5ODEyMDQ3N30.dD659ouwe5jwD7jINYURXHoWpj7ZWMJRpaAzXTQx75Q',
+          Authorization: localStorage.getItem('accessToken'),
         },
       })
       .then(res => {

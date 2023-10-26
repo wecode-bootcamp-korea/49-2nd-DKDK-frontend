@@ -74,10 +74,7 @@ const Record = () => {
     } else {
       axios
         .post(`${process.env.REACT_APP_TEST_API}/records`, myRecord, {
-          headers: {
-            Authorization:
-              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjk4MDQ2NjA5fQ.4eQr5lnZQGDY_CuOP43N1yt0-pK8yMEWo7u0EMdok34',
-          },
+          headers: { Authorization: localStorage.getItem('accessToken') },
         })
         .then(res => {
           if (res.data.message === 'UPDATED') {
