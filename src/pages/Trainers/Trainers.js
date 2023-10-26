@@ -17,16 +17,6 @@ const Trainers = () => {
   useEffect(() => {
     const axiosData = () => {
       let nowUrl = `offset=${offset}&limit=6`;
-      if (sort) {
-        nowUrl += `&sort=${sort}`;
-      }
-      if (kind) {
-        nowUrl += `&kind=${kind}`;
-      }
-
-      if (gender) {
-        nowUrl += `&gender=${gender}`;
-      }
 
       axios(`https://dummyjson.com/products?${nowUrl}`).then(
         function (response) {
