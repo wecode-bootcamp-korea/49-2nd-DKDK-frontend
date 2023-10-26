@@ -6,7 +6,6 @@ import './MyPage.scss';
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const userType = localStorage.getItem('userType');
 
   const goModiInfo = () => {
     navigate('/modiInfo');

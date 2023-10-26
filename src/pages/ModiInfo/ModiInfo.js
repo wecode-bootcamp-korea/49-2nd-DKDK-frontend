@@ -1,4 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Input from '../Signup/components/Input/Input';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
@@ -8,26 +10,47 @@ import './ModiInfo.scss';
 const ModiInfo = () => {
   const [userData, setUserData] = useState({});
   const [date, setDate] = useState(new Date());
-  const [imgFile, setImgFile] = useState('');
+  const [imgFile, setImgFile] = useState(null);
   const imgRef = useRef();
+  const userType = localStorage.getItem('userType');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_TEST_API}/userHealthInfo/get`, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken'),
+        },
+      })
+      .then(res => {
+        if (res.data.message === 'MODIFYING_USER_INFO_LOADED') {
+          setUserData(res.data.data[0]);
+        } else {
+          alert('오류입니다. 관리자에게 문의하세요.');
+        }
+      });
+  }, []);
+
   const saveImgFile = () => {
     const file = imgRef.current.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setImgFile(reader.result);
-    };
+    if (file) {
+      setImgFile(file);
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setImgFile(reader.result);
+      };
+      setUserData(pre => ({
+        ...pre,
+        image: file,
+      }));
+    }
   };
 
   const handleInput = e => {
     const { name, value, type } = e.target;
 
-    if (name === 'phoneNumber') {
-      const value = e.target.value
-        .replace(/[^0-9]/g, '')
-        .replace(/([0-9]{3})([0-9]{3,4})([0-9]{4})/g, '$1-$2-$3');
-      e.target.value = value;
-    } else if (type === 'number') {
+    if (type === 'number') {
       const value = e.target.value.replace(/[^0-9.]/g, '');
       e.target.value = value;
     }
@@ -48,34 +71,51 @@ const ModiInfo = () => {
     });
   };
 
-  const goSignUp = () => {};
+  const goSignUp = () => {
+    const formData = new FormData();
+    for (const key in userData) {
+      formData.append(key, userData[key]);
+    }
 
-  const checkAllWrite =
-    userData.height &&
-    userData.phoneNumber &&
-    userData.weight &&
-    userData.interestedWorkout &&
-    userData.workoutLoad &&
-    (userData.userType === '1' || userData.specialized);
+    axios
+      .post(`${process.env.REACT_APP_TEST_API}/userHealthInfo`, formData, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken'),
+        },
+      })
+      .then(res => {
+        if (res.data.message === 'USER_INFO_UPDATED') {
+          alert('회원 정보가 수정되었습니다.');
+          navigate('/my-page');
+        } else {
+          alert('오류입니다. 관리자에게 문의하세요.');
+        }
+      });
+  };
 
   return (
     <div className="modiInfo contentsWrap">
       <div className="container">
         <p className="title">
           내 정보 수정
-          {userData.userType === '1' ? (
-            <span>{userData.nickName} 님(일반인)</span>
+          {userType === '1' ? (
+            <span>{userData.nickname} 님(일반인)</span>
           ) : (
-            <span>{userData.nickName} 님(트레이너)</span>
+            <span>{userData.nickname} 님(트레이너)</span>
           )}
         </p>
         <div className="imgWrap">
           <div className="imgPreviewWrap">
-            <label className="imgLabel" htmlFor="profileImg">
+            <label className="imgLabel" htmlFor="image">
               {imgFile ? (
-                <img src={imgFile} />
+                <img src={imgFile} alt="프로필 이미지" />
               ) : (
-                <img src="/images/logo_white.png" />
+                <img
+                  src={
+                    userData.imgUrl ? userData.imgUrl : '/images/logo_white.png'
+                  }
+                  alt="기본 이미지"
+                />
               )}
               <span>수정</span>
             </label>
@@ -83,28 +123,21 @@ const ModiInfo = () => {
               className="imgInput"
               type="file"
               accept="image/*"
-              id="profileImg"
+              id="image"
+              name="image"
               onChange={saveImgFile}
               ref={imgRef}
             />
           </div>
         </div>
-        <Input
-          lable="전화번호(-생략)"
-          type="tel"
-          width="w100"
-          name="phoneNumber"
-          onChange={handleInput}
-          maxLength={13}
-          userData={userData}
-        />
+
         <div className="genderWrap">
           <label>
             <input
               type="radio"
               name="gender"
               value="남성"
-              defaultChecked
+              checked={userData.gender === '남성'}
               onChange={e => handleInput(e)}
             />
             <span>남성</span>
@@ -114,17 +147,19 @@ const ModiInfo = () => {
               type="radio"
               name="gender"
               value="여성"
+              checked={userData.gender === '여성'}
               onChange={e => handleInput(e)}
             />
             <span>여성</span>
           </label>
           <span className="selection"></span>
         </div>
+
         <DatePicker
           locale={ko}
           dateFormat="yyyy-MM-dd"
           maxDate={new Date()}
-          selected={date}
+          selected={userData.birthday ? new Date(userData.birthday) : date}
           onChange={date => handleDate(date)}
           className="datepicker"
           peekNextMonth
@@ -142,44 +177,50 @@ const ModiInfo = () => {
           secondName="weight"
           onChange={handleInput}
           userData={userData}
+          defaultValue={userData.height}
+          secondDefaultValue={userData.weight}
         />
         <div className="selectWrap">
           <select
             name="interestedWorkout"
-            defaultValue=""
+            value={userData.interestedWorkout}
             onChange={handleInput}
           >
             <option value="">관심운동</option>
-            <option value="1">헬스</option>
-            <option value="2">필라테스</option>
-            <option value="3">요가</option>
+            <option value={1}>헬스</option>
+            <option value={2}>필라테스</option>
+            <option value={3}>요가</option>
           </select>
         </div>
         <div className="selectWrap">
-          <select name="workoutLoad" defaultValue="" onChange={handleInput}>
+          <select
+            name="workoutLoad"
+            value={userData.workoutLoad}
+            onChange={handleInput}
+          >
             <option value="">운동강도</option>
-            <option value="1">상(60분 ~ )</option>
-            <option value="2">중(30분 ~ 60분)</option>
-            <option value="3">하(~ 30분)</option>
+            <option value={1}>상(60분 ~ )</option>
+            <option value={2}>중(30분 ~ 60분)</option>
+            <option value={3}>하(~ 30분)</option>
           </select>
         </div>
         {userData.userType === '2' && (
           <div className="selectWrap">
-            <select name="specialized" defaultValue="" onChange={handleInput}>
+            <select
+              name="specialized"
+              defaultValue={userData.specialized}
+              onChange={handleInput}
+            >
               <option value="">전문운동종목(트레이너)</option>
-              <option value="1">헬스</option>
-              <option value="2">필라테스</option>
-              <option value="3">요가</option>
+              <option value={1}>헬스</option>
+              <option value={2}>필라테스</option>
+              <option value={3}>요가</option>
             </select>
           </div>
         )}
         <div className="signupBtnWrap">
-          <button
-            className="signupBtn"
-            onClick={goSignUp}
-            disabled={!checkAllWrite}
-          >
-            가입 완료
+          <button className="signupBtn" onClick={goSignUp}>
+            수정 완료
           </button>
         </div>
       </div>
