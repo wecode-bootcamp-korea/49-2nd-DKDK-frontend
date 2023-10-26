@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './SubNav.scss';
 
 const PAGES_NAME_LIST = [
-  { id: 1, path: '/communitylist', name: 'COMMUNITY' },
+  { id: 1, path: '/communityList', name: 'COMMUNITY' },
   { id: 2, path: '/trainer', name: 'TRAINER MATCHING' },
 ];
 
