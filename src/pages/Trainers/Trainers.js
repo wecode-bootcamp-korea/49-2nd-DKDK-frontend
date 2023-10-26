@@ -20,6 +20,7 @@ const Trainers = () => {
   const [myPost, setMyPost] = useState(false);
   const [postId, setPostId] = useState('');
   const [isCanPost, setIsCanPost] = useState(false);
+  const [myInfo, setMyInfo] = useState({});
   const isSubscribed = localStorage.getItem('isSubscribed');
   const navigate = useNavigate();
 
@@ -82,10 +83,14 @@ const Trainers = () => {
         .then(function (response) {
           const dataArray = response.data.data.data;
           console.log('data :', response.data);
+          setMyInfo({
+            trainerIng: response.data.data.trainerImg,
+            trainerName: response.data.data.trainerName,
+          });
           if (response.data.data.isPostedTrainer) {
-            setIsCanPost(true);
-          } else {
             setIsCanPost(false);
+          } else {
+            setIsCanPost(true);
           }
 
           if (offset === 0) {
@@ -165,7 +170,7 @@ const Trainers = () => {
 
   return (
     <>
-      {isPost && <TrainerRegis setIsPost={setIsPost} data={data} />}
+      {isPost && <TrainerRegis setIsPost={setIsPost} myInfo={myInfo} />}
       {isDetail && (
         <TrainerDetail
           setIsDetail={setIsDetail}

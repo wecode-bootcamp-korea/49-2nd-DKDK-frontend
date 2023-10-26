@@ -2,7 +2,8 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import './TrainerRegis.scss';
 
-const TrainerRegis = ({ setIsPost }) => {
+const TrainerRegis = ({ setIsPost, myInfo }) => {
+  const { trainerImg, trainerName } = myInfo;
   const [form, setForm] = useState({
     place: '',
     price: 0,
@@ -66,21 +67,21 @@ const TrainerRegis = ({ setIsPost }) => {
           <section className="profileWrap">
             <div className="profileInfoWrap">
               <div className="profileImgWrap">
-                {/* {imgUrl ? (
+                {trainerImg ? (
                   <img
                     className="profileImg"
-                    src={process.env.PUBLIC_URL + `${imgUrl}`}
+                    src={process.env.PUBLIC_URL + `${trainerImg}`}
                     alt="트레이너 프로필"
                   />
-                ) : ( */}
-                <img
-                  className="profileImg"
-                  src={process.env.PUBLIC_URL + '/images/logo_white.png'}
-                  alt="기본 이미지"
-                />
-                {/* )} */}
+                ) : (
+                  <img
+                    className="profileImg"
+                    src={process.env.PUBLIC_URL + '/images/logo_white.png'}
+                    alt="기본 이미지"
+                  />
+                )}
               </div>
-              <p className="profileName">득근득근</p>
+              <p className="profileName">{trainerName}</p>
             </div>
             <div className="inputInfoWrap">
               <div className="inputNameWrap">
