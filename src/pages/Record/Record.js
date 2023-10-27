@@ -18,35 +18,39 @@ const Record = () => {
       .then(res => {
         const result = res.data;
         console.log(result);
-        workoutChart(result.numberCompareTime);
-        createLineChart(
-          JSON.parse(result.numberHeartbeatRecords),
-          'red',
-          true,
-          'bpm',
-          'recordHeartRate',
-        );
-        createLineChart(
-          JSON.parse(result.numberWeightRecords),
-          '#ffe86f',
-          false,
-          'kg',
-          'recordWeight',
-        );
-        createLineChart(
-          JSON.parse(result.numberMuscleRecords),
-          '#6fe2ff',
-          false,
-          'kg',
-          'recordBoneMuscle',
-        );
-        createLineChart(
-          JSON.parse(result.numberFatRecords),
-          '#6fff86',
-          false,
-          'kg',
-          'recordBodyFat',
-        );
+        if (result.message === 'NO_DATA') {
+          alert('초기 데이터가 없습니다. 데이터를 추가해주세요.');
+        } else {
+          workoutChart(result.numberCompareTime);
+          createLineChart(
+            JSON.parse(result.numberHeartbeatRecords),
+            'red',
+            true,
+            'bpm',
+            'recordHeartRate',
+          );
+          createLineChart(
+            JSON.parse(result.numberWeightRecords),
+            '#ffe86f',
+            false,
+            'kg',
+            'recordWeight',
+          );
+          createLineChart(
+            JSON.parse(result.numberMuscleRecords),
+            '#6fe2ff',
+            false,
+            'kg',
+            'recordBoneMuscle',
+          );
+          createLineChart(
+            JSON.parse(result.numberFatRecords),
+            '#6fff86',
+            false,
+            'kg',
+            'recordBodyFat',
+          );
+        }
       });
   };
   useEffect(() => {

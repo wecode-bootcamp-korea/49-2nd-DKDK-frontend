@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import './Pay.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Pay = () => {
+  const navigate = useNavigate();
   const userType = localStorage.getItem('userType');
   const script = document.createElement('script');
   script.src = 'https://cdn.iamport.kr/v1/iamport.js';
@@ -47,6 +49,7 @@ const Pay = () => {
               if (res.data.message === 'PAYMENT_SUCCESS') {
                 localStorage.setItem('isSubscribed', true);
                 alert('결제가 완료되었습니다.');
+                navigate('/');
               } else {
                 alert('오류입니다. 관리자에게 문의하세요.');
               }
