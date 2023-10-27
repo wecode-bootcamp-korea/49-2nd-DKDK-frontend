@@ -14,6 +14,7 @@ const LoginKakao = () => {
           `${process.env.REACT_APP_TEST_API}/auth/kakao/callback?code=${code}`,
         )
         .then(res => {
+          console.log(res);
           if (res.data.message === 'NEW_USER') {
             localStorage.setItem('newUserToken', res.data.token);
             navigate('/signup');
