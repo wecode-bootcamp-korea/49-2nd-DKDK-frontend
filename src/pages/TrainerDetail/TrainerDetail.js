@@ -20,6 +20,8 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
     term,
     content,
     name,
+    weight,
+    height,
   } = detailData;
 
   const handleClose = () => {
@@ -105,14 +107,15 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
       )
       .then(function (response) {
         const dataArray = response.data.data.data;
+        console.log(dataArray.trainerId);
         setDetailData(dataArray);
-        if (dataArray.gender === '1') {
+        if (dataArray.gender === 1) {
           setGender('남성');
         } else {
           setGender('여성');
         }
 
-        if (response.data.data.trainerId === dataArray.trainerId) {
+        if (response.data.data.trainerInfo === dataArray.trainerId) {
           setIsMine(true);
         }
         console.log(response);
@@ -157,7 +160,9 @@ const TrainerDetail = ({ setIsDetail, postId }) => {
               <ul className="detailInfo">
                 <li className="detailInfoItem">
                   <p className="infoDetailName">키/몸무게</p>
-                  <p className="infoDetail">{price}</p>
+                  <p className="infoDetail">
+                    {height}cm/{weight}kg
+                  </p>
                 </li>
                 <li className="detailInfoItem">
                   <p className="infoDetailName">운동종목</p>
