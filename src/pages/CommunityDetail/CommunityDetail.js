@@ -15,53 +15,51 @@ const CommunityDetail = () => {
   const postId = location.state.postId || 0;
   const token = localStorage.getItem('accessToken');
 
-  console.log(postId);
-
   const handleContent = e => {
     const text = e.target.value;
     setContent(text);
   };
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_TEST_API}/community/${postId}`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then(function (res) {
-        const postData = res.data.data.post_details;
-        if (res.data.message === 'GET_POST') {
-          if (res.data.data.isPostedUser) {
-            setIsMine(true);
-          } else {
-            setIsMine(false);
-          }
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_TEST_API}/community/${postId}`, {
+  //       headers: {
+  //         Authorization: token,
+  //       },
+  //     })
+  //     .then(function (res) {
+  //       const postData = res.data.data.post_details;
+  //       if (res.data.message === 'GET_POST') {
+  //         if (res.data.data.isPostedUser) {
+  //           setIsMine(true);
+  //         } else {
+  //           setIsMine(false);
+  //         }
 
-          setData(postData);
-        } else {
-          alert('오류입니다.');
-        }
-      });
-  }, []);
+  //         setData(postData);
+  //       } else {
+  //         alert('오류입니다.');
+  //       }
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_TEST_API}/community/comment/${postId}`, {
-        headers: {
-          Authorization: token,
-          postId: postId,
-        },
-      })
-      .then(function (res) {
-        if (res.data.data.isCommentedUser) {
-          setIsCommentMine(true);
-        } else {
-          setIsCommentMine(false);
-        }
-        setComment(res.data.data.result);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_TEST_API}/community/comment/${postId}`, {
+  //       headers: {
+  //         Authorization: token,
+  //         postId: postId,
+  //       },
+  //     })
+  //     .then(function (res) {
+  //       if (res.data.data.isCommentedUser) {
+  //         setIsCommentMine(true);
+  //       } else {
+  //         setIsCommentMine(false);
+  //       }
+  //       setComment(res.data.data.result);
+  //     });
+  // }, []);
 
   const commentPost = () => {
     if (content.length === 0) {

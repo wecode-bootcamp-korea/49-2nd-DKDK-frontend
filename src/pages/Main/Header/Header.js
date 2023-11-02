@@ -6,9 +6,11 @@ import './Header.scss';
 const Header = () => {
   const navigate = useNavigate();
   const [isMouseIn, setIsMouseIn] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState('');
-  const [accessToken, setAccessToken] = useState('');
-  const [userType, setUserType] = useState('');
+  // const [isSubscribed, setIsSubscribed] = useState('');
+  // const [accessToken, setAccessToken] = useState('');
+  const accessToken = '123qwe';
+  const isSubscribed = 'true';
+
   const mouseInEvent = () => {
     setIsMouseIn(true);
   };
@@ -37,8 +39,9 @@ const Header = () => {
       if (window.confirm('로그인이 필요한 서비스입니다.')) {
         navigate('/login');
       }
+    } else {
+      navigate('/trainer');
     }
-    navigate('/trainer');
   };
 
   const goSubScribe = () => {
@@ -51,68 +54,57 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    const handleIsSubscribed = e => {
-      if (e.key === 'isSubscribed') {
-        if (e.newValue) {
-          setIsSubscribed(e.newValue);
-        } else {
-          setIsSubscribed('');
-        }
-      }
-    };
-    const handleAccessToken = e => {
-      if (e.key === 'accessToken') {
-        if (e.newValue) {
-          setAccessToken(e.newValue);
-        } else {
-          setAccessToken('');
-        }
-      }
-    };
-    const handleUserType = e => {
-      if (e.key === 'userType') {
-        if (e.newValue) {
-          setUserType(e.newValue);
-        } else {
-          setUserType('');
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const handleIsSubscribed = e => {
+  //     if (e.key === 'isSubscribed') {
+  //       if (e.newValue) {
+  //         setIsSubscribed(e.newValue);
+  //       } else {
+  //         setIsSubscribed('');
+  //       }
+  //     }
+  //   };
+  //   const handleAccessToken = e => {
+  //     if (e.key === 'accessToken') {
+  //       if (e.newValue) {
+  //         setAccessToken(e.newValue);
+  //       } else {
+  //         setAccessToken('');
+  //       }
+  //     }
+  //   };
 
-    window.addEventListener('storage', handleIsSubscribed);
-    window.addEventListener('storage', handleAccessToken);
-    window.addEventListener('storage', handleUserType);
+  //   window.addEventListener('storage', handleIsSubscribed);
+  //   window.addEventListener('storage', handleAccessToken);
 
-    return () => {
-      window.removeEventListener('storage', handleIsSubscribed);
-      window.removeEventListener('storage', handleAccessToken);
-      window.removeEventListener('storage', handleUserType);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener('storage', handleIsSubscribed);
+  //     window.removeEventListener('storage', handleAccessToken);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
-    const isSubscribed = localStorage.getItem('isSubscribed');
-    const userType = localStorage.getItem('userType');
-    if (accessToken) {
-      setAccessToken(accessToken);
-    } else {
-      setAccessToken('');
-    }
+  // useEffect(() => {
+  //   const accessToken = localStorage.getItem('accessToken');
+  //   const isSubscribed = localStorage.getItem('isSubscribed');
+  //   const userType = localStorage.getItem('userType');
+  //   if (accessToken) {
+  //     setAccessToken(accessToken);
+  //   } else {
+  //     setAccessToken('');
+  //   }
 
-    if (isSubscribed) {
-      setIsSubscribed(isSubscribed);
-    } else {
-      setIsSubscribed('');
-    }
+  //   if (isSubscribed) {
+  //     setIsSubscribed(isSubscribed);
+  //   } else {
+  //     setIsSubscribed('');
+  //   }
 
-    if (userType) {
-      setUserType(userType);
-    } else {
-      setUserType('');
-    }
-  }, []);
+  //   if (userType) {
+  //     setUserType(userType);
+  //   } else {
+  //     setUserType('');
+  //   }
+  // }, []);
 
   return (
     <header className="header">
