@@ -57,54 +57,54 @@ const Trainers = () => {
     isTrainer();
   }, []);
 
-  useEffect(() => {
-    const axiosData = () => {
-      let nowUrl = `offset=${offset}&limit=6`;
+  // useEffect(() => {
+  //   const axiosData = () => {
+  //     let nowUrl = `offset=${offset}&limit=6`;
 
-      if (sort) {
-        nowUrl += `&sort=${sort}`;
-      }
-      if (category) {
-        nowUrl += `&category=${category}`;
-      }
-      if (gender) {
-        nowUrl += `&gender=${gender}`;
-      }
-      if (myPost) {
-        nowUrl += `&isTrainer=${myPost}`;
-      }
+  //     if (sort) {
+  //       nowUrl += `&sort=${sort}`;
+  //     }
+  //     if (category) {
+  //       nowUrl += `&category=${category}`;
+  //     }
+  //     if (gender) {
+  //       nowUrl += `&gender=${gender}`;
+  //     }
+  //     if (myPost) {
+  //       nowUrl += `&isTrainer=${myPost}`;
+  //     }
 
-      axios
-        .get(`${process.env.REACT_APP_TEST_API}/training?${nowUrl}`, {
-          headers: {
-            Authorization: localStorage.getItem('accessToken'),
-            isTrainer: isTrainer,
-          },
-        })
-        .then(function (response) {
-          const dataArray = response.data.data.data;
-          console.log('data :', response.data);
-          setMyInfo({
-            trainerIng: response.data.data.trainerImg,
-            trainerName: response.data.data.trainerName,
-          });
-          if (response.data.data.isPostedTrainer) {
-            setIsCanPost(false);
-          } else {
-            setIsCanPost(true);
-          }
+  //     axios
+  //       .get(`${process.env.REACT_APP_TEST_API}/training?${nowUrl}`, {
+  //         headers: {
+  //           Authorization: localStorage.getItem('accessToken'),
+  //           isTrainer: isTrainer,
+  //         },
+  //       })
+  //       .then(function (response) {
+  //         const dataArray = response.data.data.data;
+  //         console.log('data :', response.data);
+  //         setMyInfo({
+  //           trainerIng: response.data.data.trainerImg,
+  //           trainerName: response.data.data.trainerName,
+  //         });
+  //         if (response.data.data.isPostedTrainer) {
+  //           setIsCanPost(false);
+  //         } else {
+  //           setIsCanPost(true);
+  //         }
 
-          if (offset === 0) {
-            setPage(1);
-            setData([...dataArray]);
-          } else {
-            setData(prevData => prevData.concat(...dataArray));
-          }
-        });
-    };
+  //         if (offset === 0) {
+  //           setPage(1);
+  //           setData([...dataArray]);
+  //         } else {
+  //           setData(prevData => prevData.concat(...dataArray));
+  //         }
+  //       });
+  //   };
 
-    axiosData();
-  }, [sort, category, gender, page, myPost]);
+  //   axiosData();
+  // }, [sort, category, gender, page, myPost]);
 
   const handleOption = e => {
     const optionName = e.target.value;

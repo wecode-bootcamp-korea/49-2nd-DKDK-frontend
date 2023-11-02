@@ -9,22 +9,22 @@ const CommunityList = () => {
   // const [offset, setOffset] = useState(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
+  // useEffect(() => {
+  //   const token = localStorage.getItem('accessToken');
 
-    axios
-      .get(`${process.env.REACT_APP_TEST_API}/community/`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then(function (res) {
-        if (res.data.message === 'GET_POST') {
-          setData(res.data.data);
-        }
-        console.log(res);
-      });
-  }, []);
+  //   axios
+  //     .get(`${process.env.REACT_APP_TEST_API}/community/`, {
+  //       headers: {
+  //         Authorization: token,
+  //       },
+  //     })
+  //     .then(function (res) {
+  //       if (res.data.message === 'GET_POST') {
+  //         setData(res.data.data);
+  //       }
+  //       console.log(res);
+  //     });
+  // }, []);
 
   // useEffect(() => {
   //   const handleScroll = () => {
