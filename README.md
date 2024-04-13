@@ -1,5 +1,4 @@
 # 49-3rd-DKDK-frontend
-> 배포링크: https://dkdk3rdproject-3409909fa8cd.herokuapp.com/ <br />
 > 이 자료는 프로젝트의 원활한 진행을 위해 제작된 것입니다.
 
 팀원 : F : 권기완(ProductManager), 이영은, 안병우 B : 박준우(ProjectManager), 이동훈, 정현우, 김동언, 김승원
