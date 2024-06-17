@@ -25,17 +25,17 @@ const Trainers = () => {
   const navigate = useNavigate();
 
   const handleIsPost = () => {
-    if (isSubscribed === 'true') {
-      if (isCanPost === true) {
-        setIsPost(true);
-      } else {
-        window.confirm('이미 등록된 게시글이 존재합니다.');
-      }
-    } else {
-      if (window.confirm('구독이 필요한 서비스 입니다.')) {
-        navigate('/pay');
-      }
-    }
+    // if (isSubscribed === 'true') {
+    //   if (isCanPost === true) {
+    setIsPost(true);
+    //   } else {
+    //     window.confirm('이미 등록된 게시글이 존재합니다.');
+    //   }
+    // } else {
+    //   if (window.confirm('구독이 필요한 서비스 입니다.')) {
+    //     navigate('/pay');
+    //   }
+    // }
   };
 
   const goTop = () => {
@@ -184,11 +184,11 @@ const Trainers = () => {
           TOP
         </button>
         <div className="sortingBtn">
-          {isTrainer && (
-            <button type="button" className="postBtn" onClick={handleIsPost}>
-              등록하기
-            </button>
-          )}
+          {/* {isTrainer && ( */}
+          <button type="button" className="postBtn" onClick={handleIsPost}>
+            등록하기
+          </button>
+          {/* )} */}
           {isTrainer && (
             <button type="button" className="myBtn" onClick={isMine}>
               내 글 보기

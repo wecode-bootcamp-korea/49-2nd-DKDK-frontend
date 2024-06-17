@@ -38,24 +38,24 @@ const TrainerRegis = ({ setIsPost, myInfo }) => {
     form.period !== '' &&
     form.content !== '';
 
-  const postContent = () => {
-    axios
-      .post(`${process.env.REACT_APP_TEST_API}/training`, form, {
-        headers: {
-          Authorization: localStorage.getItem('accessToken'),
-        },
-      })
-      .then(res => {
-        console.log(res);
-        if (res.data.message === 'POST_SUCCESS') {
-          alert('등록이 완료되었습니다.');
-          window.location.reload();
-          setIsPost(false);
-        } else {
-          alert('오류입니다. 관리자에게 문의하세요.');
-        }
-      });
-  };
+  // const postContent = () => {
+  //   axios
+  //     .post(`${process.env.REACT_APP_TEST_API}/training`, form, {
+  //       headers: {
+  //         Authorization: localStorage.getItem('accessToken'),
+  //       },
+  //     })
+  //     .then(res => {
+  //       console.log(res);
+  //       if (res.data.message === 'POST_SUCCESS') {
+  //         alert('등록이 완료되었습니다.');
+  //         window.location.reload();
+  //         setIsPost(false);
+  //       } else {
+  //         alert('오류입니다. 관리자에게 문의하세요.');
+  //       }
+  //     });
+  // };
 
   return (
     <div className="trainerRegisWrap">
@@ -178,7 +178,7 @@ const TrainerRegis = ({ setIsPost, myInfo }) => {
               type="button"
               className="goPayBottomBtn"
               disabled={!allInputCheck}
-              onClick={postContent}
+              // onClick={postContent}
             >
               등록하기
             </button>
